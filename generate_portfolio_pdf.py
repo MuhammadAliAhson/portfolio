@@ -356,31 +356,31 @@ def create_portfolio_pdf(output_path):
     story.append(Spacer(1, 14))
 
     # -------------------------------------------------------------
-    # SECTION 4: PROFESSIONAL EXPERIENCE & EDUCATION
+    # SECTION 4: CLIENT ENGAGEMENTS & TECHNICAL TRACK RECORD
     # -------------------------------------------------------------
-    story.append(Paragraph("4. PROFESSIONAL EXPERIENCE & EDUCATION", h1_style))
+    story.append(Paragraph("4. CLIENT ENGAGEMENTS & TECHNICAL TRACK RECORD", h1_style))
     story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=8, spaceBefore=2))
 
     exp_data = [
         [
-            Paragraph("<b>Senior Software Engineer</b><br/>Australian Engineering Consultancy<br/><font color='#64748B'>Jun 2026 — Present</font>", bold_body),
-            Paragraph("Lead engineer on AI enterprise software, backend architecture, third-party integrations, and Azure deployments. Rebuilt prompt-assembly layer to reduce proposal turnaround from days to <1 hr; implemented Microsoft Entra ID RBAC across 24 use cases and per-user OAuth 2.0 with Total Synergy v4 API.", body_style)
+            Paragraph("<b>Enterprise AI & Cloud Systems</b><br/><font color='#64748B'>Australian Engineering Consultancy<br/>Jun 2026 — Present</font>", bold_body),
+            Paragraph("Lead engineering delivery on AI enterprise software, backend architecture, third-party integrations, and Azure deployments. Rebuilt prompt-assembly layer to reduce proposal turnaround from days to <1 hr; implemented Microsoft Entra ID RBAC across 24 enterprise use cases and per-user OAuth 2.0 with Total Synergy v4 API.", body_style)
         ],
         [
-            Paragraph("<b>Software Engineer — AI</b><br/>Applied AI Consultancy<br/><font color='#64748B'>Jun 2025 — Jun 2026</font>", bold_body),
-            Paragraph("Shipped generative AI, vLLM inference services (100 concurrent requests on RTX 2080 Ti), dynamic RAG frameworks (+60% retrieval efficiency), YOLO aerial object detection (TF Lite GPU), and offline Android GGUF RAG chatbots.", body_style)
+            Paragraph("<b>Applied AI & High-Throughput Serving</b><br/><font color='#64748B'>AI Engineering Consultancy<br/>Jun 2025 — Jun 2026</font>", bold_body),
+            Paragraph("Shipped client AI systems including vLLM inference microservices (100 concurrent requests on RTX 2080 Ti), dynamic RAG frameworks (+60% retrieval efficiency), edge computer vision deployments (TF Lite GPU), and quantized offline Android GGUF RAG chatbots.", body_style)
         ],
         [
-            Paragraph("<b>Data Science & AI Engineering</b><br/>Analytics & Research Labs<br/><font color='#64748B'>2023 — 2024</font>", bold_body),
-            Paragraph("Developed real-time financial price prediction models, digital receipt OCR extraction pipelines (+15% accuracy boost), and executive analytics dashboards.", body_style)
+            Paragraph("<b>Analytics & Applied Machine Learning</b><br/><font color='#64748B'>FinTech & Healthcare Engagements<br/>2023 — 2024</font>", bold_body),
+            Paragraph("Engineered real-time financial price prediction models for banking decision support, digital receipt OCR extraction pipelines (+15% extraction precision), and executive data analytics pipelines.", body_style)
         ],
         [
-            Paragraph("<b>Education & Foundation</b><br/>University CS Program", bold_body),
-            Paragraph("<b>Bachelor of Science in Computer Science (B.S. CS)</b> — Rigorous foundation in Software Engineering, Distributed Backend Systems, Machine Learning, and Computer Vision.", body_style)
+            Paragraph("<b>Technical Standards & Core Rigor</b><br/><font color='#64748B'>Computer Science Foundation</font>", bold_body),
+            Paragraph("<b>Bachelor of Science in Computer Science (B.S. CS)</b> — Rigorous foundation in Distributed Backend Systems, Scalable Software Architecture, Machine Learning, and Production Infrastructure.", body_style)
         ]
     ]
 
-    exp_table = Table(exp_data, colWidths=[150, 382])
+    exp_table = Table(exp_data, colWidths=[160, 372])
     exp_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#F8FAFC")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#CBD5E1")),
