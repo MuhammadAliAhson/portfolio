@@ -32,7 +32,7 @@ class NumberedCanvas(canvas.Canvas):
         
         # Header (pages > 1)
         if self._pageNumber > 1:
-            self.drawString(40, 762, "Muhammad Ali Ahson — Senior Software Engineer | Portfolio Dossier")
+            self.drawString(40, 762, "Senior Software Engineer — AI Systems & Backend Architecture | Technical Dossier")
             self.setStrokeColor(colors.HexColor("#E2E8F0"))
             self.setLineWidth(0.5)
             self.line(40, 756, 572, 756)
@@ -42,7 +42,7 @@ class NumberedCanvas(canvas.Canvas):
         self.setLineWidth(0.5)
         self.line(40, 42, 572, 42)
         
-        self.drawString(40, 30, "Confidential Client Dossier · Generated for Technical & Executive Review")
+        self.drawString(40, 30, "Technical & Architectural Dossier · Prepared for Engineering Leadership & Technical Review")
         page_str = f"Page {self._pageNumber} of {page_count}"
         self.drawRightString(572, 30, page_str)
         self.restoreState()
@@ -71,8 +71,8 @@ def create_portfolio_pdf(output_path):
         'DocTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=20,
-        leading=24,
+        fontSize=18,
+        leading=22,
         textColor=c_dark
     )
 
@@ -85,8 +85,8 @@ def create_portfolio_pdf(output_path):
         textColor=c_primary
     )
 
-    contact_style = ParagraphStyle(
-        'ContactText',
+    meta_style = ParagraphStyle(
+        'MetaText',
         parent=styles['Normal'],
         fontName='Helvetica',
         fontSize=8.5,
@@ -141,20 +141,20 @@ def create_portfolio_pdf(output_path):
     story = []
 
     # -------------------------------------------------------------
-    # HEADER / EXECUTIVE SUMMARY
+    # HEADER / GENERAL EXECUTIVE SUMMARY (NO PERSONAL NAME / CONTACT)
     # -------------------------------------------------------------
     header_data = [
         [
-            Paragraph("<b>MUHAMMAD ALI AHSON</b>", title_style),
-            Paragraph("<b>Email:</b> aliahson56@gmail.com<br/><b>Phone:</b> +92 324 774 8900<br/><b>Location:</b> Islamabad, Pakistan", contact_style)
+            Paragraph("<b>SENIOR SOFTWARE ENGINEER</b>", title_style),
+            Paragraph("<b>Document:</b> Technical Engineering Portfolio<br/><b>Focus:</b> AI Systems & Backend Architecture", meta_style)
         ],
         [
-            Paragraph("Senior Software Engineer · AI Systems · Backend Architecture", subtitle_style),
-            Paragraph("<b>GitHub:</b> github.com/MuhammadAliAhson<br/><b>LinkedIn:</b> linkedin.com/in/muhammadaliahson<br/><b>HuggingFace:</b> huggingface.co/maliahson", contact_style)
+            Paragraph("AI Systems · Backend Architecture · Production Infrastructure", subtitle_style),
+            Paragraph("<b>Audience:</b> CTOs, Engineering Managers & Founders<br/><b>Specialization:</b> Vibe Code → Production Ready", meta_style)
         ]
     ]
     
-    header_table = Table(header_data, colWidths=[310, 222])
+    header_table = Table(header_data, colWidths=[320, 212])
     header_table.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('BOTTOMPADDING', (0,0), (-1,-1), 2),
@@ -327,17 +327,17 @@ def create_portfolio_pdf(output_path):
         ],
         [
             Paragraph("<b>Medical Reasoning LLM</b><br/><font color='#64748B'>DeepSeek R1 Distill LLaMA 8B</font>", bold_body),
-            Paragraph("Fine-tuned DeepSeek R1 Distill LLaMA 8B on clinical diagnostic reasoning datasets using Unsloth 4-bit QLoRA to maximize VRAM efficiency. Published weights for public research.<br/><b>Live Model:</b> huggingface.co/maliahson/deepseek-finetune-medical", body_style),
+            Paragraph("Fine-tuned DeepSeek R1 Distill LLaMA 8B on clinical diagnostic reasoning datasets using Unsloth 4-bit QLoRA to maximize VRAM efficiency. Published model weights for public research and experimentation.", body_style),
             Paragraph("<b>Stack:</b> DeepSeek, LLaMA, LoRA, Unsloth, PyTorch", tag_style)
         ],
         [
             Paragraph("<b>ID Document Parsing</b><br/><font color='#64748B'>Structured National Identity Extraction</font>", bold_body),
-            Paragraph("Computer vision and OCR pipeline for localized bounding box detection (Name, ID number, DOB, Barcode/QR) with automated cross-field checksum validation.<br/><b>Live Space:</b> huggingface.co/spaces/maliahson/CNIC_Detector", body_style),
+            Paragraph("Computer vision and OCR pipeline for localized bounding box detection (Name, ID number, DOB, Barcode/QR) with automated cross-field checksum validation deployed to interactive web spaces.", body_style),
             Paragraph("<b>Stack:</b> YOLOv8, OCR, OpenCV, Python, HF Spaces", tag_style)
         ],
         [
             Paragraph("<b>Automatic Number Plate Recognition (ANPR)</b><br/><font color='#64748B'>Real-Time Vehicle Localization</font>", bold_body),
-            Paragraph("High-accuracy object detection achieving <b>97.5% Precision and 97.5% Recall</b> on benchmark splits across challenging lighting and video stream angles.<br/><b>Live Space:</b> huggingface.co/spaces/maliahson/YOLO_Lisencse_Plate_Detector", body_style),
+            Paragraph("High-accuracy object detection achieving <b>97.5% Precision and 97.5% Recall</b> on benchmark splits across challenging lighting and video stream angles.", body_style),
             Paragraph("<b>Stack:</b> YOLOv8, OpenCV, Python, HF Spaces", tag_style)
         ]
     ]
@@ -356,27 +356,27 @@ def create_portfolio_pdf(output_path):
     story.append(Spacer(1, 14))
 
     # -------------------------------------------------------------
-    # SECTION 4: PROFESSIONAL EXPERIENCE TIMELINE & EDUCATION
+    # SECTION 4: PROFESSIONAL EXPERIENCE & EDUCATION
     # -------------------------------------------------------------
     story.append(Paragraph("4. PROFESSIONAL EXPERIENCE & EDUCATION", h1_style))
     story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=8, spaceBefore=2))
 
     exp_data = [
         [
-            Paragraph("<b>Senior Software Engineer</b><br/>Cerecon (Australia)<br/><font color='#64748B'>Jun 2026 — Present</font>", bold_body),
+            Paragraph("<b>Senior Software Engineer</b><br/>Australian Engineering Consultancy<br/><font color='#64748B'>Jun 2026 — Present</font>", bold_body),
             Paragraph("Lead engineer on AI enterprise software, backend architecture, third-party integrations, and Azure deployments. Rebuilt prompt-assembly layer to reduce proposal turnaround from days to <1 hr; implemented Microsoft Entra ID RBAC across 24 use cases and per-user OAuth 2.0 with Total Synergy v4 API.", body_style)
         ],
         [
-            Paragraph("<b>Software Engineer — AI</b><br/>TechQuest.Ai (Islamabad)<br/><font color='#64748B'>Jun 2025 — Jun 2026</font>", bold_body),
+            Paragraph("<b>Software Engineer — AI</b><br/>Applied AI Consultancy<br/><font color='#64748B'>Jun 2025 — Jun 2026</font>", bold_body),
             Paragraph("Shipped generative AI, vLLM inference services (100 concurrent requests on RTX 2080 Ti), dynamic RAG frameworks (+60% retrieval efficiency), YOLO aerial object detection (TF Lite GPU), and offline Android GGUF RAG chatbots.", body_style)
         ],
         [
-            Paragraph("<b>Data Science & AI Intern</b><br/>Atomcamp & DataInsight Lab<br/><font color='#64748B'>2023 — 2024</font>", bold_body),
-            Paragraph("Developed real-time financial price prediction models, digital receipt OCR extraction pipelines (+15% accuracy boost), and Power BI executive dashboards.", body_style)
+            Paragraph("<b>Data Science & AI Engineering</b><br/>Analytics & Research Labs<br/><font color='#64748B'>2023 — 2024</font>", bold_body),
+            Paragraph("Developed real-time financial price prediction models, digital receipt OCR extraction pipelines (+15% accuracy boost), and executive analytics dashboards.", body_style)
         ],
         [
-            Paragraph("<b>Education</b><br/>FAST-NUCES Islamabad", bold_body),
-            Paragraph("<b>Bachelor of Science in Computer Science (B.S. CS)</b> — Focus on Software Engineering, Distributed Systems, Machine Learning, and Computer Vision.", body_style)
+            Paragraph("<b>Education & Foundation</b><br/>University CS Program", bold_body),
+            Paragraph("<b>Bachelor of Science in Computer Science (B.S. CS)</b> — Rigorous foundation in Software Engineering, Distributed Backend Systems, Machine Learning, and Computer Vision.", body_style)
         ]
     ]
 
@@ -397,5 +397,5 @@ def create_portfolio_pdf(output_path):
     print(f"Successfully generated PDF: {output_path}")
 
 if __name__ == "__main__":
-    out_file = os.path.join(os.path.dirname(__file__), "Muhammad_Ali_Ahson_Engineering_Portfolio.pdf")
+    out_file = os.path.join(os.path.dirname(__file__), "Senior_Software_Engineer_Portfolio.pdf")
     create_portfolio_pdf(out_file)
