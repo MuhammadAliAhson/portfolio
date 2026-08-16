@@ -32,7 +32,7 @@ class NumberedCanvas(canvas.Canvas):
         
         # Header (pages > 1)
         if self._pageNumber > 1:
-            self.drawString(40, 762, "Senior Software Engineer — AI Systems & Backend Architecture | Technical Dossier")
+            self.drawString(40, 762, "AI Systems & Backend Engineering Consultancy | Services & Capabilities Dossier")
             self.setStrokeColor(colors.HexColor("#E2E8F0"))
             self.setLineWidth(0.5)
             self.line(40, 756, 572, 756)
@@ -42,12 +42,12 @@ class NumberedCanvas(canvas.Canvas):
         self.setLineWidth(0.5)
         self.line(40, 42, 572, 42)
         
-        self.drawString(40, 30, "Technical & Architectural Dossier · Prepared for Engineering Leadership & Technical Review")
+        self.drawString(40, 30, "Engineering Services Dossier · Confidential · Prepared for Technical & Executive Review")
         page_str = f"Page {self._pageNumber} of {page_count}"
         self.drawRightString(572, 30, page_str)
         self.restoreState()
 
-def create_portfolio_pdf(output_path):
+def create_services_portfolio_pdf(output_path):
     doc = SimpleDocTemplate(
         output_path,
         pagesize=letter,
@@ -59,7 +59,7 @@ def create_portfolio_pdf(output_path):
 
     styles = getSampleStyleSheet()
     
-    # Custom styles
+    # Custom colors & typography
     c_dark = colors.HexColor("#0F172A")
     c_primary = colors.HexColor("#0284C7")
     c_slate = colors.HexColor("#334155")
@@ -71,8 +71,8 @@ def create_portfolio_pdf(output_path):
         'DocTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=18,
-        leading=22,
+        fontSize=17,
+        leading=21,
         textColor=c_dark
     )
 
@@ -80,8 +80,8 @@ def create_portfolio_pdf(output_path):
         'DocSubtitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=10,
-        leading=14,
+        fontSize=9.5,
+        leading=13,
         textColor=c_primary
     )
 
@@ -89,8 +89,8 @@ def create_portfolio_pdf(output_path):
         'MetaText',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.5,
-        leading=12,
+        fontSize=8,
+        leading=11.5,
         textColor=c_slate
     )
 
@@ -98,18 +98,18 @@ def create_portfolio_pdf(output_path):
         'SectionH1',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=12,
-        leading=16,
+        fontSize=11.5,
+        leading=15,
         textColor=c_dark,
-        spaceAfter=4
+        spaceAfter=3
     )
 
     h2_style = ParagraphStyle(
         'CardH2',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=10.5,
-        leading=14,
+        fontSize=10,
+        leading=13.5,
         textColor=c_dark
     )
 
@@ -117,8 +117,8 @@ def create_portfolio_pdf(output_path):
         'BodyDark',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.5,
-        leading=12,
+        fontSize=8.2,
+        leading=11.5,
         textColor=c_slate
     )
 
@@ -133,28 +133,28 @@ def create_portfolio_pdf(output_path):
         'TagStyle',
         parent=styles['Normal'],
         fontName='Courier-Bold',
-        fontSize=7.5,
-        leading=10,
+        fontSize=7.2,
+        leading=9.5,
         textColor=c_primary
     )
 
     story = []
 
     # -------------------------------------------------------------
-    # HEADER / GENERAL EXECUTIVE SUMMARY (NO PERSONAL NAME / CONTACT)
+    # HEADER / CONSULTANCY EXECUTIVE PROFILE
     # -------------------------------------------------------------
     header_data = [
         [
-            Paragraph("<b>SENIOR SOFTWARE ENGINEER</b>", title_style),
-            Paragraph("<b>Document:</b> Technical Engineering Portfolio<br/><b>Focus:</b> AI Systems & Backend Architecture", meta_style)
+            Paragraph("<b>AI SYSTEMS & BACKEND ENGINEERING CONSULTANCY</b>", title_style),
+            Paragraph("<b>Service Model:</b> Technical Advisory & Implementation<br/><b>Focus:</b> Vibe Code → Production Software", meta_style)
         ],
         [
-            Paragraph("AI Systems · Backend Architecture · Production Infrastructure", subtitle_style),
-            Paragraph("<b>Audience:</b> CTOs, Engineering Managers & Founders<br/><b>Specialization:</b> Vibe Code → Production Ready", meta_style)
+            Paragraph("Production AI Systems · Scalable Backend Architecture · Cloud Infrastructure", subtitle_style),
+            Paragraph("<b>Target Audience:</b> CTOs, VPs of Engineering & Founders<br/><b>Engagements:</b> Audits, Refactoring & Deployments", meta_style)
         ]
     ]
     
-    header_table = Table(header_data, colWidths=[320, 212])
+    header_table = Table(header_data, colWidths=[330, 202])
     header_table.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('BOTTOMPADDING', (0,0), (-1,-1), 2),
@@ -163,14 +163,15 @@ def create_portfolio_pdf(output_path):
         ('RIGHTPADDING', (0,0), (-1,-1), 0),
     ]))
     story.append(header_table)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
 
-    # Executive positioning box
+    # Core Value Proposition & Mission Box
     summary_text = (
-        "<b>Executive Summary:</b> Senior Software Engineer specializing in taking rapidly built or "
-        "vibe-coded applications and re-engineering them into clean, reliable, production-ready systems. "
-        "Deep expertise across FastAPI backend microservices, high-throughput vLLM model serving, "
-        "adaptive RAG pipelines, enterprise Microsoft Entra ID / OAuth 2.0 security, and automated CI/CD."
+        "<b>Company Value Proposition:</b> AI-assisted development allows teams to build prototypes faster than ever, "
+        "but rapidly generated code often accumulates critical technical debt — duplicated logic, coupled components, "
+        "vulnerable authentication, and unstable latency. <b>We help engineering leaders transform vibe-coded applications "
+        "into clean, resilient, enterprise-ready production software</b> with strict data contracts, high-throughput model serving, "
+        "and automated cloud CI/CD pipelines."
     )
     summary_table = Table([[Paragraph(summary_text, body_style)]], colWidths=[532])
     summary_table.setStyle(TableStyle([
@@ -182,121 +183,163 @@ def create_portfolio_pdf(output_path):
         ('BOTTOMPADDING', (0,0), (-1,-1), 6),
     ]))
     story.append(summary_table)
-    story.append(Spacer(1, 12))
+    story.append(Spacer(1, 10))
 
     # -------------------------------------------------------------
-    # SECTION 1: ENGINEERING CASE STUDIES
+    # SECTION 1: CORE CONSULTING & ENGINEERING SERVICES
     # -------------------------------------------------------------
-    story.append(Paragraph("1. ENGINEERING CASE STUDIES (FLAGSHIP WORK)", h1_style))
-    story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=8, spaceBefore=2))
+    story.append(Paragraph("1. CORE CONSULTING & ENGINEERING SERVICES", h1_style))
+    story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=6, spaceBefore=2))
+
+    services_data = [
+        [
+            Paragraph("<b>Codebase Audit & Architecture Assessment</b><br/>"
+                      "<font color='#64748B'>Comprehensive review of existing applications to identify architecture flaws, security vulnerabilities, latency bottlenecks, and unmaintainable technical debt before it halts growth.</font><br/>"
+                      "<b>Key Deliverables:</b> Architecture Assessment Report, Auth Inspection, Refactoring Roadmap", body_style),
+            Paragraph("<b>Refactoring & Domain Modularization</b><br/>"
+                      "<font color='#64748B'>Transform tightly coupled or vibe-coded prototypes into clean, modular architectures with strict service boundaries and isolated domain logic.</font><br/>"
+                      "<b>Key Deliverables:</b> Domain Boundary Separation, Clean Schema Contracts, Decoupled Service Layers", body_style)
+        ],
+        [
+            Paragraph("<b>Production Backend Engineering</b><br/>"
+                      "<font color='#64748B'>Architect and build robust, asynchronous FastAPI microservices, scalable database layers, and complex third-party API orchestrations engineered for real load.</font><br/>"
+                      "<b>Key Deliverables:</b> Asynchronous REST APIs, Relational/Vector Schemas, Third-Party Integration", body_style),
+            Paragraph("<b>Applied AI & LLM Systems Engineering</b><br/>"
+                      "<font color='#64748B'>Engineer production-ready LLM pipelines, dynamic contextual RAG frameworks, model fine-tuning (LoRA), and agentic workflows with strict validation.</font><br/>"
+                      "<b>Key Deliverables:</b> High-Throughput vLLM Serving, Dynamic RAG Pipelines, LoRA Fine-Tuning", body_style)
+        ],
+        [
+            Paragraph("<b>Enterprise Productionization & Security</b><br/>"
+                      "<font color='#64748B'>Harden applications to meet enterprise compliance standards: Microsoft Entra ID RBAC, per-user OAuth 2.0 token handshakes, structured logging, and automated CI/CD.</font><br/>"
+                      "<b>Key Deliverables:</b> Enterprise OAuth 2.0 / RBAC, Azure CI/CD Pipelines, Audit Trail Systems", body_style),
+            Paragraph("<b>Performance & Throughput Optimization</b><br/>"
+                      "<font color='#64748B'>Diagnose and resolve GPU memory leaks, KV-cache fragmentation, concurrency limits, and p99 latency spikes across backend and AI workloads.</font><br/>"
+                      "<b>Key Deliverables:</b> GPU KV-Cache Tuning, Concurrency Stress Testing, Latency Profiling", body_style)
+        ]
+    ]
+
+    services_table = Table(services_data, colWidths=[262, 262])
+    services_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#F8FAFC")),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#CBD5E1")),
+        ('LEFTPADDING', (0,0), (-1,-1), 6),
+        ('RIGHTPADDING', (0,0), (-1,-1), 6),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+        ('VALIGN', (0,0), (-1,-1), 'TOP'),
+    ]))
+    story.append(services_table)
+    story.append(Spacer(1, 10))
+
+    # -------------------------------------------------------------
+    # SECTION 2: ENGINEERING CASE STUDIES & PROVEN DELIVERABLES
+    # -------------------------------------------------------------
+    story.append(Paragraph("2. FLAGSHIP CASE STUDIES & TECHNICAL DELIVERABLES", h1_style))
+    story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=6, spaceBefore=2))
 
     # CASE STUDY 01
     cs1_content = [
-        Paragraph("<b>CASE STUDY 01: Enterprise LLM Application</b> &nbsp; <font color='#B45309'>[Confidential Client Work]</font>", h2_style),
-        Paragraph("<b>Domain:</b> Australian Engineering Consultancy (Cerecon) &nbsp;|&nbsp; <b>Key Outcome:</b> Turnaround reduced from <b>Days → < 1 Hour</b>", subtitle_style),
-        Spacer(1, 4),
-        Paragraph("<b>The Problem:</b> Automated proposal generation needed to convert raw client briefs into audit-ready fee proposals with automated rate cards and branded Word/Excel deliverables without risking hallucinated pricing or audit gaps.", body_style),
+        Paragraph("<b>CASE STUDY 01: Enterprise LLM Proposal Engine</b> &nbsp; <font color='#B45309'>[Client Deliverable]</font>", h2_style),
+        Paragraph("<b>Client Profile:</b> Australian Engineering Consultancy &nbsp;|&nbsp; <b>Measurable Impact:</b> Turnaround reduced from <b>Days → < 1 Hour</b>", subtitle_style),
         Spacer(1, 3),
-        Paragraph("<b>Engineering Implementation:</b><br/>"
-                  "• <b>Backend Architecture:</b> Built and maintained FastAPI services on Azure App Service with strict domain separation.<br/>"
-                  "• <b>Multi-Stage Prompt Assembly:</b> Engineered structured context preservation across multi-phase LLM runs.<br/>"
-                  "• <b>Security & Identity:</b> Implemented per-user OAuth 2.0 token handshakes with Total Synergy v4 API and Microsoft Entra ID RBAC across 24 mapped enterprise use cases, eliminating shared-account audit gaps.<br/>"
-                  "• <b>DevOps:</b> Solved Azure App Service limits using Kudu async zipdeploy with zero commit loss migration.", body_style),
-        Spacer(1, 3),
-        Paragraph("<b>Tech Stack:</b> Python, FastAPI, Azure App Service, Azure DevOps, Microsoft Entra ID, OAuth 2.0, RBAC, REST APIs, LLMs", tag_style)
+        Paragraph("<b>The Challenge:</b> Client required an automated enterprise solution to transform project briefs into client-ready fee proposals with strict rate-card pricing and branded Word/Excel deliverables without risking hallucinated fee data or security audit gaps.", body_style),
+        Spacer(1, 2),
+        Paragraph("<b>Consulting & Engineering Work Delivered:</b><br/>"
+                  "• <b>FastAPI Architecture:</b> Built modular services on Azure App Service with isolated prompt-assembly logic.<br/>"
+                  "• <b>Multi-Stage Generation:</b> Engineered context management preserving prompt fidelity across multi-step LLM workflows.<br/>"
+                  "• <b>Zero-Audit-Gap Security:</b> Configured per-user OAuth 2.0 token handshakes with Total Synergy v4 API and Microsoft Entra ID RBAC across 24 mapped enterprise use cases, ensuring all mutations are tied to individual authenticated users.<br/>"
+                  "• <b>CI/CD Pipeline:</b> Solved deployment timeouts and package limits using Azure DevOps Kudu async zipdeploy.", body_style),
+        Spacer(1, 2),
+        Paragraph("<b>Technologies:</b> Python, FastAPI, Azure App Service, Azure DevOps, Microsoft Entra ID, OAuth 2.0, RBAC, REST APIs, LLMs", tag_style)
     ]
     cs1_table = Table([[cs1_content]], colWidths=[532])
     cs1_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), c_bg_light),
         ('BOX', (0,0), (-1,-1), 0.75, colors.HexColor("#94A3B8")),
-        ('LEFTPADDING', (0,0), (-1,-1), 8),
-        ('RIGHTPADDING', (0,0), (-1,-1), 8),
-        ('TOPPADDING', (0,0), (-1,-1), 6),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+        ('LEFTPADDING', (0,0), (-1,-1), 7),
+        ('RIGHTPADDING', (0,0), (-1,-1), 7),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
     ]))
     story.append(cs1_table)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
 
     # CASE STUDY 02
     cs2_content = [
         Paragraph("<b>CASE STUDY 02: High-Throughput LLM Inference Service</b> &nbsp; <font color='#0284C7'>[AI Infrastructure]</font>", h2_style),
-        Paragraph("<b>Hardware Target:</b> Single NVIDIA RTX 2080 Ti &nbsp;|&nbsp; <b>Key Outcome:</b> <b>100 Concurrent Requests</b> Supported", subtitle_style),
-        Spacer(1, 4),
-        Paragraph("<b>The Problem:</b> Deploying production LLM serving on constrained GPU hardware while handling high concurrent user loads without VRAM out-of-memory crashes or high time-to-first-token (TTFT) queue spikes.", body_style),
+        Paragraph("<b>Target Environment:</b> Single NVIDIA RTX 2080 Ti &nbsp;|&nbsp; <b>Measurable Impact:</b> <b>100 Concurrent Requests</b> Supported", subtitle_style),
         Spacer(1, 3),
-        Paragraph("<b>Engineering Implementation:</b><br/>"
-                  "• <b>vLLM Engine Integration:</b> Leveraged continuous batching and PagedAttention to eliminate memory fragmentation.<br/>"
-                  "• <b>KV-Cache Optimization:</b> Tuned memory allocation chunks and asynchronous request queue buffers.<br/>"
-                  "• <b>Pipeline Flow:</b> Client → API Gateway → Async Queue / Scheduler → vLLM Batcher → GPU VRAM → Streamed Tokens.<br/>"
-                  "• <b>Benchmarking:</b> Profiled token generation rates under synthetic load to maintain sub-second first-token response.", body_style),
-        Spacer(1, 3),
-        Paragraph("<b>Tech Stack:</b> Python, vLLM, Continuous Batching, PagedAttention, PyTorch, FastAPI, Docker, GPU Profiling", tag_style)
+        Paragraph("<b>The Challenge:</b> Deploying high-concurrency LLM inference on budget-constrained hardware without running into GPU VRAM out-of-memory errors or unacceptable queue waiting times.", body_style),
+        Spacer(1, 2),
+        Paragraph("<b>Consulting & Engineering Work Delivered:</b><br/>"
+                  "• <b>Continuous Batching & PagedAttention:</b> Integrated vLLM serving engine to eliminate memory fragmentation.<br/>"
+                  "• <b>KV-Cache Optimization:</b> Tuned memory allocation chunks and configured asynchronous request schedulers.<br/>"
+                  "• <b>Architecture Pipeline:</b> Client → API Gateway → Async Queue / Scheduler → vLLM Batcher → GPU VRAM → Streaming Tokens.<br/>"
+                  "• <b>Synthetic Load Benchmarking:</b> Measured token-to-first-token (TTFT) and inter-token latency to maintain sub-second SLA.", body_style),
+        Spacer(1, 2),
+        Paragraph("<b>Technologies:</b> Python, vLLM, Continuous Batching, PagedAttention, PyTorch, FastAPI, Docker, GPU Profiling", tag_style)
     ]
     cs2_table = Table([[cs2_content]], colWidths=[532])
     cs2_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), c_bg_light),
         ('BOX', (0,0), (-1,-1), 0.75, colors.HexColor("#94A3B8")),
-        ('LEFTPADDING', (0,0), (-1,-1), 8),
-        ('RIGHTPADDING', (0,0), (-1,-1), 8),
-        ('TOPPADDING', (0,0), (-1,-1), 6),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+        ('LEFTPADDING', (0,0), (-1,-1), 7),
+        ('RIGHTPADDING', (0,0), (-1,-1), 7),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
     ]))
     story.append(cs2_table)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
 
     # CASE STUDY 03
     cs3_content = [
-        Paragraph("<b>CASE STUDY 03: Contextual Dynamic RAG Framework</b> &nbsp; <font color='#0284C7'>[Search & LLM Infrastructure]</font>", h2_style),
-        Paragraph("<b>Architecture:</b> Hybrid Dynamic Routing &nbsp;|&nbsp; <b>Key Outcome:</b> <b>+60% Retrieval Efficiency Improvement</b>", subtitle_style),
-        Spacer(1, 4),
-        Paragraph("<b>The Problem:</b> Standard naive RAG pipelines suffer from high latency on exact-match queries and poor context quality on complex multi-hop reasoning over heterogeneous enterprise documents.", body_style),
+        Paragraph("<b>CASE STUDY 03: Contextual Dynamic RAG Framework</b> &nbsp; <font color='#0284C7'>[Search & Retrieval Infrastructure]</font>", h2_style),
+        Paragraph("<b>Retrieval Architecture:</b> Dynamic Multi-Strategy Routing &nbsp;|&nbsp; <b>Measurable Impact:</b> <b>+60% Retrieval Efficiency Gain</b>", subtitle_style),
         Spacer(1, 3),
-        Paragraph("<b>Engineering Implementation:</b><br/>"
-                  "• <b>Dynamic Query Router:</b> Classifies incoming queries by intent, keyword density, and semantic complexity.<br/>"
+        Paragraph("<b>The Challenge:</b> Single-path naive RAG pipelines created unnecessary latency on exact-keyword searches and poor recall on multi-step reasoning queries across complex enterprise document sets.", body_style),
+        Spacer(1, 2),
+        Paragraph("<b>Consulting & Engineering Work Delivered:</b><br/>"
+                  "• <b>Dynamic Query Classifier:</b> Upfront classifier analyzing user intent, keyword density, and semantic complexity.<br/>"
                   "• <b>Hybrid Retrieval Layer:</b> Routes between FAISS dense vector search and BM25 sparse keyword indices dynamically.<br/>"
-                  "• <b>Cross-Encoder Reranking:</b> Applied fine-grained reranking over candidate chunks before prompt context assembly.<br/>"
-                  "• <b>Compaction:</b> Deduplicated context windows to maximize answer precision and minimize LLM inference tokens.", body_style),
-        Spacer(1, 3),
-        Paragraph("<b>Tech Stack:</b> FAISS, BM25, Cross-Encoder, LangGraph, Python, FastAPI, Hugging Face Embeddings", tag_style)
+                  "• <b>Cross-Encoder Reranking:</b> Applied fine-grained reranking over candidate chunks prior to context window assembly.<br/>"
+                  "• <b>Context Compaction:</b> Deduplicated and compacted retrieved passages to prevent prompt bloating and LLM distraction.", body_style),
+        Spacer(1, 2),
+        Paragraph("<b>Technologies:</b> FAISS, BM25, Cross-Encoder, LangGraph, Python, FastAPI, Hugging Face Embeddings", tag_style)
     ]
     cs3_table = Table([[cs3_content]], colWidths=[532])
     cs3_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), c_bg_light),
         ('BOX', (0,0), (-1,-1), 0.75, colors.HexColor("#94A3B8")),
-        ('LEFTPADDING', (0,0), (-1,-1), 8),
-        ('RIGHTPADDING', (0,0), (-1,-1), 8),
-        ('TOPPADDING', (0,0), (-1,-1), 6),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+        ('LEFTPADDING', (0,0), (-1,-1), 7),
+        ('RIGHTPADDING', (0,0), (-1,-1), 7),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
     ]))
     story.append(cs3_table)
-    story.append(Spacer(1, 14))
+    story.append(Spacer(1, 10))
 
     # -------------------------------------------------------------
-    # SECTION 2: TECHNICAL STACK & SKILLS
+    # SECTION 3: TECHNICAL STACK & INFRASTRUCTURE MATRIX
     # -------------------------------------------------------------
-    story.append(Paragraph("2. TECHNICAL STACK & CORE COMPETENCIES", h1_style))
-    story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=8, spaceBefore=2))
+    story.append(Paragraph("3. TECHNICAL STACK & CORE CAPABILITIES", h1_style))
+    story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=6, spaceBefore=2))
 
     skills_data = [
         [
-            Paragraph("<b>Languages</b>", bold_body),
-            Paragraph("Python, C++, SQL, JavaScript, HTML/CSS, Bash", body_style)
+            Paragraph("<b>Backend & Cloud</b>", bold_body),
+            Paragraph("FastAPI, REST APIs, Asynchronous Python, Docker, Git, Azure App Service, Azure DevOps, Microsoft Entra ID, OAuth 2.0, RBAC, CI/CD Automation", body_style)
         ],
         [
             Paragraph("<b>AI / LLM Systems</b>", bold_body),
-            Paragraph("LoRA / PEFT, Unsloth, vLLM, llama.cpp, GGUF, Dynamic RAG, Prompt Engineering, LangChain, LangGraph, Hugging Face Transformers, OpenAI / Anthropic / Gemini APIs, Coqui TTS", body_style)
+            Paragraph("LoRA / PEFT, Unsloth, vLLM, llama.cpp, GGUF Quantization, Dynamic RAG, Prompt Engineering, LangChain, LangGraph, Hugging Face Transformers, OpenAI / Anthropic / Gemini APIs", body_style)
         ],
         [
-            Paragraph("<b>ML / Computer Vision</b>", bold_body),
-            Paragraph("PyTorch, TensorFlow, TensorFlow Lite, Ultralytics YOLO (v8), OpenCV, scikit-learn, Optuna, Weights & Biases, Pandas, NumPy", body_style)
+            Paragraph("<b>ML / Vision / Audio</b>", bold_body),
+            Paragraph("PyTorch, TensorFlow, TensorFlow Lite, Ultralytics YOLOv8, OpenCV, Whisper (Speech-to-Text), scikit-learn, Optuna, Weights & Biases, Pandas, NumPy", body_style)
         ],
         [
-            Paragraph("<b>Backend & Cloud</b>", bold_body),
-            Paragraph("FastAPI, REST APIs, Docker, Git, Azure App Service, Azure DevOps, Microsoft Entra ID, OAuth 2.0, RBAC, CI/CD Pipelines, Hugging Face Spaces", body_style)
-        ],
-        [
-            Paragraph("<b>Databases & Analytics</b>", bold_body),
-            Paragraph("PostgreSQL, MySQL, MongoDB, Supabase, FAISS Vector Index, Power BI, Tableau", body_style)
+            Paragraph("<b>Data & Storage</b>", bold_body),
+            Paragraph("PostgreSQL, MySQL, MongoDB, Supabase, FAISS Vector Databases, Power BI, Tableau", body_style)
         ]
     ]
 
@@ -311,72 +354,26 @@ def create_portfolio_pdf(output_path):
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
     ]))
     story.append(skills_table)
-    story.append(Spacer(1, 14))
+    story.append(Spacer(1, 10))
 
     # -------------------------------------------------------------
-    # SECTION 3: PUBLIC PROJECTS & WORK
+    # SECTION 4: CLIENT ENGAGEMENT HISTORY & TRACK RECORD
     # -------------------------------------------------------------
-    story.append(Paragraph("3. PUBLIC PROJECTS & OPEN-SOURCE ARTIFACTS", h1_style))
-    story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=8, spaceBefore=2))
-
-    projects_data = [
-        [
-            Paragraph("<b>Kisan Rabta</b><br/><font color='#64748B'>Voice-to-Insight Agricultural AI Platform</font>", bold_body),
-            Paragraph("Fine-tuned OpenAI Whisper on 18,000 scraped text samples & 2 hours of regional Urdu audio. Extracted structured agricultural information & crop disease diagnostics via custom NER pipelines, exposed via low-latency REST APIs.", body_style),
-            Paragraph("<b>Stack:</b> Whisper, NER, Python, FastAPI, React Native", tag_style)
-        ],
-        [
-            Paragraph("<b>Medical Reasoning LLM</b><br/><font color='#64748B'>DeepSeek R1 Distill LLaMA 8B</font>", bold_body),
-            Paragraph("Fine-tuned DeepSeek R1 Distill LLaMA 8B on clinical diagnostic reasoning datasets using Unsloth 4-bit QLoRA to maximize VRAM efficiency. Published model weights for public research and experimentation.", body_style),
-            Paragraph("<b>Stack:</b> DeepSeek, LLaMA, LoRA, Unsloth, PyTorch", tag_style)
-        ],
-        [
-            Paragraph("<b>ID Document Parsing</b><br/><font color='#64748B'>Structured National Identity Extraction</font>", bold_body),
-            Paragraph("Computer vision and OCR pipeline for localized bounding box detection (Name, ID number, DOB, Barcode/QR) with automated cross-field checksum validation deployed to interactive web spaces.", body_style),
-            Paragraph("<b>Stack:</b> YOLOv8, OCR, OpenCV, Python, HF Spaces", tag_style)
-        ],
-        [
-            Paragraph("<b>Automatic Number Plate Recognition (ANPR)</b><br/><font color='#64748B'>Real-Time Vehicle Localization</font>", bold_body),
-            Paragraph("High-accuracy object detection achieving <b>97.5% Precision and 97.5% Recall</b> on benchmark splits across challenging lighting and video stream angles.", body_style),
-            Paragraph("<b>Stack:</b> YOLOv8, OpenCV, Python, HF Spaces", tag_style)
-        ]
-    ]
-
-    proj_table = Table(projects_data, colWidths=[150, 242, 140])
-    proj_table.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#F8FAFC")),
-        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#CBD5E1")),
-        ('LEFTPADDING', (0,0), (-1,-1), 6),
-        ('RIGHTPADDING', (0,0), (-1,-1), 6),
-        ('TOPPADDING', (0,0), (-1,-1), 5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
-        ('VALIGN', (0,0), (-1,-1), 'TOP'),
-    ]))
-    story.append(proj_table)
-    story.append(Spacer(1, 14))
-
-    # -------------------------------------------------------------
-    # SECTION 4: CLIENT ENGAGEMENTS & TECHNICAL TRACK RECORD
-    # -------------------------------------------------------------
-    story.append(Paragraph("4. CLIENT ENGAGEMENTS & TECHNICAL TRACK RECORD", h1_style))
-    story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=8, spaceBefore=2))
+    story.append(Paragraph("4. CLIENT ENGAGEMENT HISTORY & TRACK RECORD", h1_style))
+    story.append(HRFlowable(width="100%", thickness=1, color=c_primary, spaceAfter=6, spaceBefore=2))
 
     exp_data = [
         [
-            Paragraph("<b>Enterprise AI & Cloud Systems</b><br/><font color='#64748B'>Australian Engineering Consultancy<br/>Jun 2026 — Present</font>", bold_body),
-            Paragraph("Lead engineering delivery on AI enterprise software, backend architecture, third-party integrations, and Azure deployments. Rebuilt prompt-assembly layer to reduce proposal turnaround from days to <1 hr; implemented Microsoft Entra ID RBAC across 24 enterprise use cases and per-user OAuth 2.0 with Total Synergy v4 API.", body_style)
+            Paragraph("<b>Enterprise AI & Proposal Systems</b><br/><font color='#64748B'>Australian Engineering Firm<br/>2026 — Present</font>", bold_body),
+            Paragraph("Delivered automated proposal generation architecture, multi-stage context assembly layer, Microsoft Entra ID RBAC across 24 use cases, and per-user OAuth 2.0 token handshakes with Total Synergy v4 API on Azure App Service.", body_style)
         ],
         [
-            Paragraph("<b>Applied AI & High-Throughput Serving</b><br/><font color='#64748B'>AI Engineering Consultancy<br/>Jun 2025 — Jun 2026</font>", bold_body),
-            Paragraph("Shipped client AI systems including vLLM inference microservices (100 concurrent requests on RTX 2080 Ti), dynamic RAG frameworks (+60% retrieval efficiency), edge computer vision deployments (TF Lite GPU), and quantized offline Android GGUF RAG chatbots.", body_style)
+            Paragraph("<b>AI Infrastructure & Model Serving</b><br/><font color='#64748B'>AI Engineering Consultancy<br/>2025 — 2026</font>", bold_body),
+            Paragraph("Architected high-throughput vLLM inference services (100 concurrent requests on RTX 2080 Ti), dynamic RAG frameworks (+60% retrieval efficiency), edge vision deployments (TF Lite GPU), and offline Android GGUF RAG chatbots.", body_style)
         ],
         [
-            Paragraph("<b>Analytics & Applied Machine Learning</b><br/><font color='#64748B'>FinTech & Healthcare Engagements<br/>2023 — 2024</font>", bold_body),
-            Paragraph("Engineered real-time financial price prediction models for banking decision support, digital receipt OCR extraction pipelines (+15% extraction precision), and executive data analytics pipelines.", body_style)
-        ],
-        [
-            Paragraph("<b>Technical Standards & Core Rigor</b><br/><font color='#64748B'>Computer Science Foundation</font>", bold_body),
-            Paragraph("<b>Bachelor of Science in Computer Science (B.S. CS)</b> — Rigorous foundation in Distributed Backend Systems, Scalable Software Architecture, Machine Learning, and Production Infrastructure.", body_style)
+            Paragraph("<b>Analytics & Applied Machine Learning</b><br/><font color='#64748B'>FinTech & Healthcare Sector<br/>2023 — 2024</font>", bold_body),
+            Paragraph("Built real-time financial price prediction models for banking decision support, digital receipt OCR extraction pipelines (+15% extraction precision), and executive data analytics dashboards.", body_style)
         ]
     ]
 
@@ -394,8 +391,8 @@ def create_portfolio_pdf(output_path):
 
     # Build document
     doc.build(story, canvasmaker=NumberedCanvas)
-    print(f"Successfully generated PDF: {output_path}")
+    print(f"Successfully generated Services PDF: {output_path}")
 
 if __name__ == "__main__":
-    out_file = os.path.join(os.path.dirname(__file__), "Senior_Software_Engineer_Portfolio.pdf")
-    create_portfolio_pdf(out_file)
+    out_file = os.path.join(os.path.dirname(__file__), "AI_Systems_Engineering_Services_Dossier.pdf")
+    create_services_portfolio_pdf(out_file)
