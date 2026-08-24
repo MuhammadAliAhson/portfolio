@@ -1,33 +1,43 @@
-import { Navbar } from "@/components/Navbar";
-import { Hero } from "@/components/Hero";
-import { TrustStrip } from "@/components/TrustStrip";
-import { CoreValue } from "@/components/CoreValue";
-import { Philosophy } from "@/components/Philosophy";
-import { Experience } from "@/components/Experience";
-import { CaseStudies } from "@/components/CaseStudies";
-import { PublicProjects } from "@/components/PublicProjects";
-import { Skills } from "@/components/Skills";
-import { About } from "@/components/About";
-import { Services } from "@/components/Services";
-import { Contact } from "@/components/Contact";
-import { Footer } from "@/components/Footer";
+import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
+import { Hero } from "@/components/home/Hero";
+import { ProofBar } from "@/components/home/ProofBar";
+import { Qualify } from "@/components/home/Qualify";
+import { ServicesGrid } from "@/components/home/ServicesGrid";
+import { WorkPreview } from "@/components/home/WorkPreview";
+import { HowIWork } from "@/components/home/HowIWork";
+import { Industries, TechStrip } from "@/components/home/Industries";
+import { Engagement } from "@/components/home/Engagement";
+import { Insights } from "@/components/home/Insights";
+import { Testimonials } from "@/components/Testimonials";
+import { Faq, FaqJsonLd } from "@/components/Faq";
+import { FinalCta } from "@/components/FinalCta";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "AI systems and backend engineering — Muhammad Ali Ahson",
+  description:
+    "I take AI prototypes that stalled before production and rebuild them into systems your team can run, secure and afford. Production readiness audits, backend engineering, RAG and LLM systems.",
+  alternates: { canonical: "/" },
+  openGraph: { url: "/", images: [ogImage({})] },
+};
+
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#080A0F] text-slate-100 relative selection:bg-sky-500/20 selection:text-sky-300">
-      <Navbar />
+    <>
+      <FaqJsonLd />
       <Hero />
-      <TrustStrip />
-      <CoreValue />
-      <Philosophy />
-      <Experience />
-      <CaseStudies />
-      <PublicProjects />
-      <Skills />
-      <About />
-      <Services />
-      <Contact />
-      <Footer />
-    </main>
+      <ProofBar />
+      <Qualify />
+      <ServicesGrid />
+      <WorkPreview />
+      <Testimonials />
+      <HowIWork />
+      <Industries />
+      <TechStrip />
+      <Engagement />
+      <Insights />
+      <Faq limit={6} />
+      <FinalCta />
+    </>
   );
 }

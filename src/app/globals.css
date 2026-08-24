@@ -1,124 +1,224 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
 @tailwind base;
+
+@layer base {
+  /*
+   * All three faces are self-hosted from public/fonts, so their URLs are stable
+   * and the two present at first paint can be preloaded explicitly (layout.tsx).
+   * Each has a metric-matched fallback — override values derived from the fonts
+   * themselves — so swapping in the real face never moves the page.
+   */
+
+  /* Display — Archivo, pinned to weight 500, width axis kept so headlines
+     40px and over can use the expanded cut from the same file. */
+  @font-face {
+    font-family: "Archivo Variable";
+    src: url("/fonts/archivo-w500-latin.woff2") format("woff2");
+    font-weight: 500;
+    font-stretch: 62% 125%;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Archivo Fallback";
+    src: local("Arial"), local("Helvetica Neue"), local("Liberation Sans");
+    ascent-override: 87.8%;
+    descent-override: 21%;
+    line-gap-override: 0%;
+    size-adjust: 117.58%;
+  }
+
+  /* Body — Inter */
+  @font-face {
+    font-family: "Inter Variable";
+    src: url("/fonts/inter-latin.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Inter Fallback";
+    src: local("Arial"), local("Helvetica Neue"), local("Liberation Sans");
+    ascent-override: 96.88%;
+    descent-override: 24.12%;
+    line-gap-override: 0%;
+    size-adjust: 138.27%;
+  }
+
+  /* Mono — eyebrow labels, diagram annotations, stack chips and price lines only */
+  @font-face {
+    font-family: "JetBrains Mono Variable";
+    src: url("/fonts/jetbrains-mono-latin.woff2") format("woff2");
+    font-weight: 400 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "JetBrains Mono Fallback";
+    src: local("Consolas"), local("Menlo"), local("DejaVu Sans Mono");
+    ascent-override: 102%;
+    descent-override: 30%;
+    line-gap-override: 0%;
+    size-adjust: 109.13%;
+  }
+
+  :root {
+    --font-display: "Archivo Variable";
+    --font-display-fallback: "Archivo Fallback";
+    --font-body: "Inter Variable";
+    --font-body-fallback: "Inter Fallback";
+    --font-mono: "JetBrains Mono Variable";
+    --font-mono-fallback: "JetBrains Mono Fallback";
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-porcelain font-sans text-body text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings are display, weight 500. Never heavier — weight reads cheap at size. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-ink font-display;
+    font-weight: 500;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brass-deep ring-offset-2 ring-offset-porcelain;
+  }
+
+  ::selection {
+    @apply bg-brass/25 text-ink;
+  }
+
+  /* The dark register: case studies, architecture diagrams, the final CTA. */
+  .on-ink :focus-visible {
+    @apply ring-brass ring-offset-ink;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-inter: 'Inter', sans-serif;
-  --font-jetbrains-mono: 'JetBrains Mono', monospace;
-  --bg-main: #080a0f;
-  --card-bg: #0f121c;
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-border-hover: rgba(56, 189, 248, 0.25);
-  --accent-glow: rgba(56, 189, 248, 0.12);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  color-scheme: dark;
-}
-
-body {
-  background-color: var(--bg-main);
-  color: #f1f5f9;
-  font-family: var(--font-inter);
-  overflow-x: hidden;
-  selection-background-color: #38bdf8;
-  selection-color: #080a0f;
-}
-
-::selection {
-  background: rgba(56, 189, 248, 0.25);
-  color: #38bdf8;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
-}
-
-::-webkit-scrollbar-track {
-  background: #080a0f;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #334155;
-}
-
-/* Subtle Technical Grid Background */
-.tech-grid-bg {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-}
-
-.tech-dots-bg {
-  background-size: 24px 24px;
-  background-image: radial-gradient(rgba(56, 189, 248, 0.12) 1px, transparent 1px);
-}
-
-/* Technical Glow Card */
-.tech-card {
-  background-color: #0f121c;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.tech-card:hover {
-  border-color: rgba(56, 189, 248, 0.25);
-  box-shadow: 0 4px 20px -2px rgba(56, 189, 248, 0.06);
-}
-
-/* Terminal & Code Styling */
-.font-mono-code {
-  font-family: var(--font-jetbrains-mono);
-}
-
-/* Subtle Pulsing status dot */
-.status-indicator {
-  position: relative;
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #10b981;
-}
-
-.status-indicator::after {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 50%;
-  background-color: rgba(16, 185, 129, 0.4);
-  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.8;
+@layer components {
+  /* Hero and section headlines at 40px and over use Archivo Expanded. */
+  .expanded {
+    font-stretch: 125%;
   }
-  50% {
-    transform: scale(1.6);
+
+  /*
+   * Scroll reveal: fade only, 250ms, stagger capped at 60ms. Visible by default —
+   * the hidden state is only ever applied by JavaScript, so content is never
+   * trapped behind an animation that did not run.
+   */
+  .reveal[data-reveal="hidden"] {
     opacity: 0;
   }
-  100% {
-    transform: scale(0.95);
+
+  .reveal[data-reveal="hidden"],
+  .reveal[data-reveal="shown"] {
+    transition: opacity 250ms ease-out;
+  }
+
+  .reveal[data-reveal="shown"] {
+    opacity: 1;
+  }
+
+  /* One observer per list or grid; the stagger lives here rather than in JS. */
+  .reveal-group[data-reveal="hidden"] > *,
+  .reveal-group[data-reveal="shown"] > * {
+    transition: opacity 250ms ease-out;
+  }
+
+  .reveal-group[data-reveal="hidden"] > * {
     opacity: 0;
+  }
+
+  .reveal-group[data-reveal="shown"] > *:nth-child(2) {
+    transition-delay: 30ms;
+  }
+
+  .reveal-group[data-reveal="shown"] > *:nth-child(n + 3) {
+    transition-delay: 60ms;
+  }
+
+  .eyebrow {
+    @apply font-mono text-eyebrow uppercase text-brass-deep;
+  }
+
+  .eyebrow-dark {
+    @apply font-mono text-eyebrow uppercase text-brass;
+  }
+
+  .hairline-t {
+    @apply border-t border-hairline;
+  }
+
+  .lede {
+    @apply max-w-prose text-body-l text-muted;
+  }
+
+  /* Inline prose links: ink text, brass underline. Brass stays an accent. */
+  .link-underline {
+    @apply text-ink underline decoration-brass decoration-1 underline-offset-4 transition-colors hover:decoration-2;
+  }
+
+  /* Standalone action links, always paired with an arrow icon. */
+  .link-action {
+    @apply inline-flex items-center gap-1.5 text-small font-medium text-brass-deep transition-colors hover:text-ink;
+  }
+
+  .link-action-dark {
+    @apply inline-flex items-center gap-1.5 text-small font-medium text-brass transition-colors hover:text-porcelain;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal[data-reveal="hidden"],
+  .reveal[data-reveal="shown"],
+  .reveal-group > *,
+  .reveal-group[data-reveal="hidden"] > *,
+  .reveal-group[data-reveal="shown"] > * {
+    opacity: 1;
+    transition: none;
+    transition-delay: 0ms;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .reveal,
+  .reveal[data-reveal="hidden"],
+  .reveal[data-reveal="shown"],
+  .reveal-group > *,
+  .reveal-group[data-reveal="hidden"] > *,
+  .reveal-group[data-reveal="shown"] > * {
+    opacity: 1;
+    transition: none;
   }
 }
