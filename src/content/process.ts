@@ -1,3 +1,31 @@
+/**
+ * The plainest possible answer to "how do I actually start working with you",
+ * shown at the top of /process before any of the detail below. No jargon —
+ * this is for whoever signs off on the engagement, not the engineer reading it.
+ */
+export const HOW_TO_ENGAGE = [
+  {
+    step: "01",
+    title: "Book a free call",
+    detail: "Thirty minutes. Tell me the problem — no charge, no obligation.",
+  },
+  {
+    step: "02",
+    title: "Get a written plan and a fixed quote",
+    detail: "You see the price and the scope before anything starts. No surprises later.",
+  },
+  {
+    step: "03",
+    title: "Watch it get built, week by week",
+    detail: "A working demo every week, so you always know exactly where things stand.",
+  },
+  {
+    step: "04",
+    title: "Take the handover",
+    detail: "Documentation, a walkthrough, and 30 days of support after you go live.",
+  },
+] as const;
+
 /** Four phases for the home page. The full eight-step version lives below. */
 export const PHASES = [
   {

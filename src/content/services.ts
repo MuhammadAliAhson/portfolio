@@ -5,6 +5,12 @@ export interface Service {
   outcome: string;
   /** Buyer-side symptoms this service answers. Feeds the qualification cards. */
   signals: string[];
+  /**
+   * Plain-English business case — how this helps you, why it's for you.
+   * Written for a non-technical reader and shown before any of the technical
+   * detail below it.
+   */
+  benefit: string[];
   deliverables: string[];
   duration: string;
   engagement: string;
@@ -26,6 +32,10 @@ export const SERVICES: Service[] = [
     signals: [
       "Our AI demo works. It falls over with real users.",
       "We think we are close to launch, but nobody can say what is left.",
+    ],
+    benefit: [
+      "If you are not sure your system can handle real users, this gives you a clear, written answer in plain English, before you spend another dollar building on shaky ground.",
+      "You will know exactly what is solid, what is risky, and what it costs to fix, so you can decide with confidence either way.",
     ],
     deliverables: [
       "Architecture and data-flow review",
@@ -85,6 +95,10 @@ export const SERVICES: Service[] = [
       "Our codebase was built fast and nobody wants to touch it now.",
       "Every change breaks something else we did not expect.",
     ],
+    benefit: [
+      "If new features take longer every month and your developers are afraid to touch parts of the code, this fixes that without a costly rewrite.",
+      "Your product keeps working exactly as it does today, while the foundation underneath becomes something your team can build on with confidence.",
+    ],
     deliverables: [
       "Business logic pulled out of routes and UI",
       "Explicit module interfaces and data contracts",
@@ -142,6 +156,10 @@ export const SERVICES: Service[] = [
     signals: [
       "We need a real backend behind the prototype our team built.",
       "Our integration with a third-party system keeps breaking.",
+    ],
+    benefit: [
+      "If your product idea is ready but you need the engine behind it — the part that stores data, talks to other systems and never falls over — this is that engine.",
+      "You get software that keeps working when real customers show up, not just when it is a demo in front of investors.",
     ],
     deliverables: [
       "Asynchronous FastAPI services with typed contracts",
@@ -201,6 +219,10 @@ export const SERVICES: Service[] = [
       "Our chatbot answers confidently and is sometimes wrong.",
       "We need AI over our own documents, not the public internet.",
     ],
+    benefit: [
+      "If your AI feature sometimes gives wrong or made-up answers, this grounds it in your own information, so what it says is accurate and you can point to why.",
+      "You get an AI feature your customers can trust, at a cost that does not spiral as usage grows.",
+    ],
     deliverables: [
       "Retrieval pipelines over your own content",
       "Multi-stage generation with state retention",
@@ -259,6 +281,10 @@ export const SERVICES: Service[] = [
       "We need enterprise auth and audit trails before we can sell this.",
       "Deployments are manual and only one person knows how.",
     ],
+    benefit: [
+      "If enterprise buyers are asking who can see what and who did what before they will sign, this answers those questions properly, and unblocks the deal.",
+      "You get a system that passes security review, with every action traceable to a real person, and releases that happen safely without you in the room.",
+    ],
     deliverables: [
       "Identity and role-based access control",
       "Per-user OAuth against third-party systems",
@@ -316,6 +342,10 @@ export const SERVICES: Service[] = [
     signals: [
       "Our LLM costs are climbing and we do not know why.",
       "We were quoted a GPU budget that does not fit our plan.",
+    ],
+    benefit: [
+      "If your AI or cloud bill keeps climbing and nobody can say exactly why, this finds the real cause instead of guessing at a fix.",
+      "You serve more users on the infrastructure you already have, and you can finally see where every dollar of spend is going.",
     ],
     deliverables: [
       "Measured bottleneck analysis, not guesswork",

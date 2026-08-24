@@ -10,8 +10,9 @@ export function GET() {
     "Disallow: /api/",
     "Disallow: /privacy",
     "",
+    // No "Host:" line: it is a Yandex-only extension and fails standard
+    // robots.txt validation (caught this once before via Lighthouse's SEO audit).
     `Sitemap: ${site.url}/sitemap.xml`,
-    `Host: ${site.url}`,
     "",
   ].join("\n");
 

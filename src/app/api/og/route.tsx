@@ -19,7 +19,7 @@ export function GET(request: Request) {
   const params = new URL(request.url).searchParams;
   const eyebrow = clamp(params.get("eyebrow"), LIMITS.eyebrow) || site.practice;
   const title =
-    clamp(params.get("title"), LIMITS.title) || "Your AI demo, ready for production";
+    clamp(params.get("title"), LIMITS.title) || "Your partner in AI-powered business transformation";
   const meta = clamp(params.get("meta"), LIMITS.meta) || site.title;
 
   return new ImageResponse(

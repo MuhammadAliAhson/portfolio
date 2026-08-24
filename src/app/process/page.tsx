@@ -4,6 +4,7 @@ import { ogImage } from "@/lib/og";
 import {
   CONTRACTING,
   ENGAGEMENT_MODELS,
+  HOW_TO_ENGAGE,
   ONBOARDING,
   PIPELINE,
   WEEK_SHAPE,
@@ -48,6 +49,23 @@ export default function ProcessPage() {
           Download the one-page capability overview
         </PdfDownload>
       </PageHeader>
+
+      <Section id="how-to-engage" tone="strip">
+        <SectionHead
+          eyebrow="How to work with me"
+          title="Four steps, start to finish"
+          lede="No jargon, no long procurement process. This is the whole thing."
+        />
+        <RevealGroup as="ol" className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {HOW_TO_ENGAGE.map((item) => (
+            <li key={item.step} className="rounded-card border border-hairline bg-porcelain p-6">
+              <span className="font-mono text-caption text-slate">{item.step}</span>
+              <h3 className="mt-3 text-h3">{item.title}</h3>
+              <p className="mt-2.5 text-small leading-relaxed text-muted">{item.detail}</p>
+            </li>
+          ))}
+        </RevealGroup>
+      </Section>
 
       <Section id="models" tone="light">
         <SectionHead

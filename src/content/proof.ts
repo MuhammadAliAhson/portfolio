@@ -1,6 +1,11 @@
 import { site } from "@/lib/site";
 
-/** Four hard numbers, business-framed, each with its technical detail behind it. */
+/**
+ * Four hard numbers, business-framed, each with its technical detail behind it.
+ * No longer rendered as a standalone grid on the home page — project highlights
+ * and testimonials lead instead — but kept here as the source for these figures
+ * wherever they're quoted (case study pages, the capability PDF).
+ */
 export const PROOF_NUMBERS = [
   {
     value: "Days to 1 hr",
@@ -45,19 +50,42 @@ export const PLATFORM_PROOF = [
   { label: "Career history on LinkedIn", href: site.socials.linkedin },
 ] as const;
 
-/**
- * TODO(testimonials): the single highest-leverage addition to this site.
- * Add entries here and the testimonial block renders itself. Until then it stays
- * hidden rather than showing a placeholder, because a fake quote costs more trust
- * than an absent one.
- */
-export const TESTIMONIALS: {
+export interface Testimonial {
   quote: string;
   name: string;
   role: string;
   company: string;
+  /** 1–5. Omit until the client has actually given a rating. */
+  rating?: number;
   photo?: string;
-}[] = [];
+}
+
+/**
+ * TODO(testimonials): the exact quote and star rating below are placeholders,
+ * not real words — I do not invent what a named person said. Replace `quote`
+ * and set `rating` with what Amrita and Darcy actually told you before this
+ * goes live; until then TestimonialCard renders them in a visibly "awaiting
+ * confirmation" state rather than as a finished review.
+ *
+ * Also worth checking: Cerecon is your employer, not an independent client of
+ * this practice (see /about). If Amrita and Darcy are colleagues or your
+ * manager there, "role" should say that plainly — e.g. "Engineering Manager,
+ * Cerecon" — rather than reading as a client testimonial for the practice.
+ */
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    quote: "",
+    name: "Amrita",
+    role: "Colleague, Cerecon",
+    company: "Cerecon",
+  },
+  {
+    quote: "",
+    name: "Darcy Richardson",
+    role: "Colleague, Cerecon",
+    company: "Cerecon",
+  },
+];
 
 export const INDUSTRIES = [
   {

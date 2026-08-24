@@ -62,6 +62,36 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </dl>
       </PageHeader>
 
+      <Section tone="strip">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <h2 className="text-h2">Why this matters to you</h2>
+            {service.benefit.map((paragraph) => (
+              <p key={paragraph} className="mt-5 max-w-prose text-body-l text-ink">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          <aside className="lg:col-span-5">
+            <div className="rounded-card border border-hairline bg-porcelain p-6 sm:p-8">
+              <h3 className="text-h3">This is for you if</h3>
+              <ul className="mt-5 space-y-3">
+                {service.signals.map((signal) => (
+                  <li key={signal} className="flex gap-3 text-small leading-relaxed text-muted">
+                    <span
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brass"
+                      aria-hidden="true"
+                    />
+                    “{signal}”
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </Section>
+
       <Section tone="light">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
