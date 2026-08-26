@@ -8,8 +8,9 @@ import {
 } from "@/content/proof";
 import { CASE_STUDIES } from "@/content/work";
 import { Container } from "@/components/ui/Container";
-import { RevealGroup } from "@/components/ui/Reveal";
-import { Stars, TestimonialCard } from "@/components/TestimonialCard";
+import { Reveal, RevealGroup } from "@/components/ui/Reveal";
+import { Stars } from "@/components/TestimonialCard";
+import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 
 /**
  * The first thing after the hero, and the section that has to earn trust
@@ -110,7 +111,7 @@ export function ProofBar() {
                 weight rather than being buried in the cards. */}
             {TESTIMONIAL_SUMMARY.average ? (
               <div className="flex items-center gap-3 rounded-full border border-hairline bg-porcelain px-4 py-2">
-                <Stars rating={5} />
+                <Stars rating={Math.round(Number(TESTIMONIAL_SUMMARY.average))} />
                 <span className="text-small">
                   <span className="font-medium text-ink">{TESTIMONIAL_SUMMARY.average}</span>
                   <span className="text-slate">
@@ -122,23 +123,14 @@ export function ProofBar() {
             ) : null}
           </div>
 
-          <RevealGroup className="mt-7 grid gap-4 md:grid-cols-2">
-            {TESTIMONIALS.map((testimonial) => (
-              <TestimonialCard
-                key={testimonial.name}
-                testimonial={testimonial}
-                compact
-                surface="porcelain"
-              />
-            ))}
-          </RevealGroup>
-
-          {/* Says where each review came from, so the internal one is not passed
-              off as independent client proof. */}
-          <p className="mt-4 font-mono text-eyebrow leading-relaxed text-slate">
-            Fiverr reviews are public on the platform. The Cerecon review is from inside the
-            organisation I work in, not an independent client of this practice.
-          </p>
+          <Reveal className="mt-7">
+            <TestimonialCarousel
+              testimonials={TESTIMONIALS}
+              surface="porcelain"
+              label="What people I've worked with say"
+              compact
+            />
+          </Reveal>
         </div>
 
         <div className="mt-8 hairline-t pt-6 md:flex md:items-start md:justify-between md:gap-10">

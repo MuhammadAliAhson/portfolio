@@ -176,6 +176,20 @@
     @apply text-ink underline decoration-brass decoration-1 underline-offset-4 transition-colors hover:decoration-2;
   }
 
+  /*
+   * Scroll rows that carry their own controls (arrows and dots), so the native
+   * bar would be a second, uglier affordance for the same thing. Scrolling
+   * itself is untouched — swipe, trackpad and keyboard all still work.
+   */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Standalone action links, always paired with an arrow icon. */
   .link-action {
     @apply inline-flex items-center gap-1.5 text-small font-medium text-brass-deep transition-colors hover:text-ink;

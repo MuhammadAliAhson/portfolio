@@ -78,9 +78,9 @@ export interface Testimonial {
  * visitor can verify is worth several they cannot.
  *
  * Worth keeping straight: Cerecon is the organisation I work in, not an
- * independent client of this practice (see /about). Amrita's review is
- * genuine and internal — the note under the block on the home page says so
- * rather than letting it read as third-party client proof.
+ * independent client of this practice (see /about). Amrita's review is genuine
+ * but internal, and the site no longer says so anywhere — the disclosure line
+ * was removed by request. /about still states the employment relationship.
  *
  * TestimonialCard renders any entry with an empty `quote` in a visibly
  * "awaiting confirmation" state, so a name can be added here before the words
