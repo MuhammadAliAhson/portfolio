@@ -5,7 +5,8 @@ import { ogImage } from "@/lib/og";
 import { CASE_STUDIES } from "@/content/work";
 import { EXPERIMENTS } from "@/content/proof";
 import { EXPERIENCES } from "@/data/portfolioData";
-import { PageHeader } from "@/components/PageHeader";
+import { Container } from "@/components/ui/Container";
+import { Marked } from "@/components/ui/Marked";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { RevealGroup } from "@/components/ui/Reveal";
 import { Testimonials } from "@/components/Testimonials";
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     images: [
       ogImage({
         eyebrow: "Work",
-        title: "Every project, and who it was built for",
+        title: "Real clients, real constraints, numbers you can trace",
       }),
     ],
   },
@@ -35,11 +36,28 @@ const EARLIER_ROLES = EXPERIENCES.filter(
 export default function WorkPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="Work"
-        title="Every project, and who it was built for"
-        lede="Client engagements, earlier internship work, and independent projects — each one labelled with its scope and who it was for."
-      />
+      {/*
+        This page's whole argument is that the evidence on it can be checked, so
+        the headline makes that the claim rather than burying it in a caption.
+        Deliberately not PageHeader: /work is a conversion page and earns the
+        home page's strongest type scale, the way /services does.
+      */}
+      <header className="border-b border-hairline bg-porcelain pb-14 pt-12 md:pb-20 md:pt-16">
+        <Container>
+          <p className="eyebrow">Work</p>
+
+          <h1 className="expanded mt-6 max-w-4xl text-display-xl">
+            Real clients, real constraints, numbers you can trace
+          </h1>
+
+          <p className="lede mt-6 max-w-prose">
+            <Marked
+              text="**Nothing here is a mock-up.** Every project below is labelled with who it was built for, and every figure names the measurement behind it — because **a number you cannot check is only a claim**."
+              strongClassName="font-semibold text-ink"
+            />
+          </p>
+        </Container>
+      </header>
 
       <Section tone="light">
         <SectionHead
