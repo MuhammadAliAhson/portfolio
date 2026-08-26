@@ -8,9 +8,18 @@ export interface Service {
   /**
    * Plain-English business case — how this helps you, why it's for you.
    * Written for a non-technical reader and shown before any of the technical
-   * detail below it.
+   * detail below it. `**bold**` marks the words a skimming reader must land on;
+   * see components/ui/Marked.tsx.
    */
   benefit: string[];
+  /**
+   * The non-technical layer on /services: what this service is, for someone who
+   * does not write software and should not have to. `title` names the outcome
+   * rather than the discipline, `body` explains it in two sentences with
+   * `**bold**` on the words that carry the meaning, and `when` is the symptom in
+   * the client's own voice.
+   */
+  plain: { title: string; body: string; when: string };
   deliverables: string[];
   duration: string;
   engagement: string;
@@ -34,9 +43,14 @@ export const SERVICES: Service[] = [
       "We think we are close to launch, but nobody can say what is left.",
     ],
     benefit: [
-      "If you are not sure your system can handle real users, this gives you a clear, written answer in plain English, before you spend another dollar building on shaky ground.",
-      "You will know exactly what is solid, what is risky, and what it costs to fix, so you can decide with confidence either way.",
+      "If you are not sure your system can handle real users, this gives you a **clear, written answer in plain English**, before you spend another dollar building on shaky ground.",
+      "You will know exactly **what is solid, what is risky, and what it costs to fix**, so you can decide with confidence either way.",
     ],
+    plain: {
+      title: "Find out whether it survives real customers",
+      body: "Before you spend another dollar building, you get a **straight answer in plain English** on whether your system is ready for real users — **what is solid, what is risky, and what each fix costs**. It is written so your own team can act on it, or so you can hand it to any other engineer.",
+      when: "Our demo works. It falls over with real users.",
+    },
     deliverables: [
       "Architecture and data-flow review",
       "Security, auth and audit-trail gap list",
@@ -45,8 +59,8 @@ export const SERVICES: Service[] = [
     duration: "1–2 weeks",
     engagement: "Fixed scope, fixed fee",
     overview: [
-      "Most stalled AI projects are not stalled on the model. They are stalled on everything around it: no request validation, secrets in the wrong place, one shared service account writing to a client system, no way to reproduce a deployment, and no measurement of which part is slow.",
-      "This audit finds those things and writes them down in an order you can act on. You end up with a document your team can work from, or take to another engineer entirely. There is no obligation to hire me for the fixes.",
+      "Most stalled AI projects are not stalled on the model. They are stalled on **everything around it**: no request validation, secrets in the wrong place, one shared service account writing to a client system, no way to reproduce a deployment, and no measurement of which part is slow.",
+      "This audit finds those things and writes them down **in an order you can act on**. You end up with a document your team can work from, or take to another engineer entirely. **There is no obligation to hire me for the fixes.**",
     ],
     steps: [
       {
@@ -96,9 +110,14 @@ export const SERVICES: Service[] = [
       "Every change breaks something else we did not expect.",
     ],
     benefit: [
-      "If new features take longer every month and your developers are afraid to touch parts of the code, this fixes that without a costly rewrite.",
-      "Your product keeps working exactly as it does today, while the foundation underneath becomes something your team can build on with confidence.",
+      "If new features take longer every month and your developers are afraid to touch parts of the code, this fixes that **without a costly rewrite**.",
+      "Your product keeps working **exactly as it does today**, while the foundation underneath becomes something your team can build on with confidence.",
     ],
+    plain: {
+      title: "Make your software safe to change again",
+      body: "When every new feature takes longer than the last and your developers quietly avoid parts of the code, the foundation is the problem. This repairs it **without a rewrite** — your product keeps behaving **exactly as it does today**, and your team stops **losing weeks to changes that break something else**.",
+      when: "Our codebase was built fast and nobody wants to touch it now.",
+    },
     deliverables: [
       "Business logic pulled out of routes and UI",
       "Explicit module interfaces and data contracts",
@@ -107,8 +126,8 @@ export const SERVICES: Service[] = [
     duration: "3–8 weeks",
     engagement: "Fixed scope, or retainer for larger estates",
     overview: [
-      "Software built quickly under deadline pressure accumulates the same problems in the same places: logic buried inside request handlers, one business rule implemented three times slightly differently, no validation at the edges, and a database schema that grew one column at a time.",
-      "The work is not a rewrite. It is a sequence of behaviour-preserving changes, each small enough to review and ship, ending with clear boundaries between your domain logic, your API surface and your storage.",
+      "Software built quickly under deadline pressure accumulates the same problems in the same places: **logic buried inside request handlers**, one business rule implemented three times slightly differently, **no validation at the edges**, and a database schema that grew one column at a time.",
+      "The work is **not a rewrite**. It is a sequence of **behaviour-preserving changes**, each small enough to review and ship, ending with clear boundaries between your domain logic, your API surface and your storage.",
     ],
     steps: [
       {
@@ -158,9 +177,14 @@ export const SERVICES: Service[] = [
       "Our integration with a third-party system keeps breaking.",
     ],
     benefit: [
-      "If your product idea is ready but you need the engine behind it — the part that stores data, talks to other systems and never falls over — this is that engine.",
-      "You get software that keeps working when real customers show up, not just when it is a demo in front of investors.",
+      "If your product idea is ready but you need **the engine behind it** — the part that stores data, talks to other systems and never falls over — this is that engine.",
+      "You get software that **keeps working when real customers show up**, not just when it is a demo in front of investors.",
     ],
+    plain: {
+      title: "Build the engine behind your product",
+      body: "This is the part your customers never see but always feel: it **stores your data**, **talks to the other systems you depend on**, and **stays standing when traffic arrives**. When something does go wrong, it fails in a way someone can actually diagnose, instead of going quiet.",
+      when: "We need a real backend behind the prototype our team built.",
+    },
     deliverables: [
       "Asynchronous FastAPI services with typed contracts",
       "Relational and document data models",
@@ -169,8 +193,8 @@ export const SERVICES: Service[] = [
     duration: "4–10 weeks",
     engagement: "Fixed scope, or retainer alongside your team",
     overview: [
-      "This is the ordinary, unglamorous engineering that decides whether a product holds together: request validation, transaction boundaries, retry and timeout policy, idempotent writes, and integrations that fail in ways you can diagnose.",
-      "I have built this layer for document generation, rate-card pricing, per-user OAuth against a third-party engineering platform, and model-serving front ends. The pattern is the same each time. Make the contract explicit, then make failure legible.",
+      "This is the ordinary, unglamorous engineering that decides whether a product holds together: **request validation**, **transaction boundaries**, **retry and timeout policy**, **idempotent writes**, and integrations that fail in ways you can diagnose.",
+      "I have built this layer for document generation, rate-card pricing, per-user OAuth against a third-party engineering platform, and model-serving front ends. The pattern is the same each time. **Make the contract explicit, then make failure legible.**",
     ],
     steps: [
       {
@@ -220,9 +244,14 @@ export const SERVICES: Service[] = [
       "We need AI over our own documents, not the public internet.",
     ],
     benefit: [
-      "If your AI feature sometimes gives wrong or made-up answers, this grounds it in your own information, so what it says is accurate and you can point to why.",
-      "You get an AI feature your customers can trust, at a cost that does not spiral as usage grows.",
+      "If your AI feature sometimes gives wrong or made-up answers, this **grounds it in your own information**, so what it says is **accurate and you can point to why**.",
+      "You get an AI feature your customers can trust, at a **cost that does not spiral as usage grows**.",
     ],
+    plain: {
+      title: "Make your AI answer from your own information",
+      body: "If your AI sometimes states things that are simply not true, this anchors every answer in **your own documents and data**, so what it tells a customer is **accurate and you can show where it came from**. It also stops the **cost per answer** climbing as more people start using it.",
+      when: "Our chatbot answers confidently and is sometimes wrong.",
+    },
     deliverables: [
       "Retrieval pipelines over your own content",
       "Multi-stage generation with state retention",
@@ -231,8 +260,8 @@ export const SERVICES: Service[] = [
     duration: "4–10 weeks",
     engagement: "Fixed scope, or retainer for ongoing tuning",
     overview: [
-      "A single retrieval strategy is the most common reason an AI feature disappoints. Keyword lookups get slow, conceptual questions get poor recall, and nobody can explain why a given answer appeared.",
-      "The systems I build route each query to the retrieval method that suits it, combine dense and sparse search, re-rank candidates before they reach the prompt, and compact context so you are not paying for tokens that add nothing. On my own test set, that routing approach retrieved 60% more efficiently than a single-path pipeline.",
+      "**A single retrieval strategy is the most common reason an AI feature disappoints.** Keyword lookups get slow, conceptual questions get poor recall, and nobody can explain why a given answer appeared.",
+      "The systems I build **route each query to the retrieval method that suits it**, combine **dense and sparse search**, **re-rank candidates** before they reach the prompt, and **compact context** so you are not paying for tokens that add nothing. On my own test set, that routing approach retrieved **60% more efficiently** than a single-path pipeline.",
     ],
     steps: [
       {
@@ -282,9 +311,14 @@ export const SERVICES: Service[] = [
       "Deployments are manual and only one person knows how.",
     ],
     benefit: [
-      "If enterprise buyers are asking who can see what and who did what before they will sign, this answers those questions properly, and unblocks the deal.",
-      "You get a system that passes security review, with every action traceable to a real person, and releases that happen safely without you in the room.",
+      "If enterprise buyers are asking **who can see what and who did what** before they will sign, this answers those questions properly, and **unblocks the deal**.",
+      "You get a system that **passes security review**, with **every action traceable to a real person**, and releases that happen safely without you in the room.",
     ],
+    plain: {
+      title: "Pass the security review that is holding up the deal",
+      body: "Enterprise buyers will not sign until they know **who can see what** and **who did what**. This answers both properly, so **every action traces back to a named person** rather than a shared login — and releases stop depending on **one person being available** to do them by hand.",
+      when: "We need enterprise auth and audit trails before we can sell this.",
+    },
     deliverables: [
       "Identity and role-based access control",
       "Per-user OAuth against third-party systems",
@@ -293,8 +327,8 @@ export const SERVICES: Service[] = [
     duration: "2–6 weeks",
     engagement: "Fixed scope",
     overview: [
-      "Enterprise buyers ask the same questions before they sign: who can see what, who did what, and what happens when someone leaves. If the answer involves a shared service account, the deal stalls.",
-      "On one engagement I mapped role-based access control across 24 distinct use cases with Microsoft Entra ID, and replaced a shared service account with per-user OAuth 2.0 against a third-party platform. That closed a standing audit gap, because every write became traceable to the individual engineer who made it.",
+      "Enterprise buyers ask the same questions before they sign: **who can see what, who did what, and what happens when someone leaves**. If the answer involves a **shared service account**, the deal stalls.",
+      "On one engagement I mapped role-based access control across **24 distinct use cases** with Microsoft Entra ID, and replaced a shared service account with **per-user OAuth 2.0** against a third-party platform. That **closed a standing audit gap**, because every write became traceable to the individual engineer who made it.",
     ],
     steps: [
       {
@@ -344,9 +378,14 @@ export const SERVICES: Service[] = [
       "We were quoted a GPU budget that does not fit our plan.",
     ],
     benefit: [
-      "If your AI or cloud bill keeps climbing and nobody can say exactly why, this finds the real cause instead of guessing at a fix.",
-      "You serve more users on the infrastructure you already have, and you can finally see where every dollar of spend is going.",
+      "If your AI or cloud bill keeps climbing and nobody can say exactly why, this **finds the real cause instead of guessing** at a fix.",
+      "You serve **more users on the infrastructure you already have**, and you can finally see **where every dollar of spend is going**.",
     ],
+    plain: {
+      title: "Stop the bill climbing, without buying hardware",
+      body: "Rather than guessing at a fix, this **measures where your money and your time actually go**, then addresses the real cause. The result is **more customers served on the infrastructure you already own**, and a clear view of **what each request costs you** — so pricing stops being guesswork.",
+      when: "Our LLM costs are climbing and we do not know why.",
+    },
     deliverables: [
       "Measured bottleneck analysis, not guesswork",
       "GPU memory, batching and cache tuning",
@@ -355,8 +394,8 @@ export const SERVICES: Service[] = [
     duration: "2–4 weeks",
     engagement: "Fixed scope",
     overview: [
-      "Cost problems in AI systems are usually shape problems: prompts carrying context nobody reads, a model larger than the task needs, requests handled one at a time when they could be batched, or a GPU sitting idle between calls.",
-      "On constrained hardware I have served 100 concurrent inference requests from a single RTX 2080 Ti by tuning KV-cache allocation, continuous batching and chunked prefill. That is production throughput with no new hardware spend. The method starts with measurement, every time.",
+      "Cost problems in AI systems are usually **shape problems**: prompts carrying context nobody reads, a model larger than the task needs, requests handled one at a time when they could be **batched**, or a **GPU sitting idle** between calls.",
+      "On constrained hardware I have served **100 concurrent inference requests from a single RTX 2080 Ti** by tuning KV-cache allocation, continuous batching and chunked prefill. That is production throughput with **no new hardware spend**. **The method starts with measurement, every time.**",
     ],
     steps: [
       {

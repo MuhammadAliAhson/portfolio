@@ -8,6 +8,7 @@ import { CASE_STUDIES } from "@/content/work";
 import { PageHeader } from "@/components/PageHeader";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { RevealGroup } from "@/components/ui/Reveal";
+import { Marked } from "@/components/ui/Marked";
 import { FinalCta } from "@/components/FinalCta";
 import { DepthMarker } from "@/components/Tracked";
 
@@ -15,8 +16,18 @@ export function generateStaticParams() {
   return SERVICES.map((service) => ({ slug: service.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const service = getService(params.slug);
+/**
+ * Next 16 hands route params to the page as a promise, so both this and the
+ * component below have to await them. Reading `params.slug` synchronously
+ * yields undefined, which sent every one of these pages to notFound().
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const service = getService(slug);
   if (!service) return {};
   return {
     title: service.seo.title,
@@ -33,8 +44,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
-  const service = getService(params.slug);
+export default async function ServicePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const service = getService(slug);
   if (!service) notFound();
 
   const related = CASE_STUDIES.filter((study) => service.relatedWork.includes(study.slug));
@@ -68,7 +84,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             <h2 className="text-h2">Why this matters to you</h2>
             {service.benefit.map((paragraph) => (
               <p key={paragraph} className="mt-5 max-w-prose text-body-l text-ink">
-                {paragraph}
+                <Marked text={paragraph} />
               </p>
             ))}
           </div>
@@ -98,7 +114,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             <h2 className="text-h2">Why this comes up</h2>
             {service.overview.map((paragraph) => (
               <p key={paragraph} className="mt-5 max-w-prose text-body-l text-muted">
-                {paragraph}
+                <Marked text={paragraph} />
               </p>
             ))}
 

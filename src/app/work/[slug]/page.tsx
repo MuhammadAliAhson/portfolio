@@ -14,8 +14,18 @@ export function generateStaticParams() {
   return CASE_STUDIES.map((study) => ({ slug: study.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const study = getCaseStudy(params.slug);
+/**
+ * Next 16 hands route params to the page as a promise, so both this and the
+ * component below have to await them. Reading `params.slug` synchronously
+ * yields undefined, which sent every one of these pages to notFound().
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const study = getCaseStudy(slug);
   if (!study) return {};
   return {
     title: study.title,
@@ -36,8 +46,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function CaseStudyPage({ params }: { params: { slug: string } }) {
-  const study = getCaseStudy(params.slug);
+export default async function CaseStudyPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const study = getCaseStudy(slug);
   if (!study) notFound();
 
   const services = study.services

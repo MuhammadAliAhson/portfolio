@@ -100,12 +100,7 @@ export function ProofBar() {
 
         <div className="mt-12 hairline-t pt-10">
           <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
-            <div className="min-w-0">
-              <p className="eyebrow">What people I've worked with say</p>
-              <p className="mt-2 max-w-measure text-body font-medium text-ink">
-                Their words, not a summary of them.
-              </p>
-            </div>
+            <p className="eyebrow">What people I've worked with say</p>
 
             {/* The aggregate is the fastest read on the block, so it gets its own
                 weight rather than being buried in the cards. */}
