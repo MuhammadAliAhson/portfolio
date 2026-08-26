@@ -3,13 +3,11 @@ import { ogImage } from "@/lib/og";
 import { Hero } from "@/components/home/Hero";
 import { ProofBar } from "@/components/home/ProofBar";
 import { Qualify } from "@/components/home/Qualify";
-import { ServicesGrid } from "@/components/home/ServicesGrid";
 import { WorkPreview } from "@/components/home/WorkPreview";
 import { HowIWork } from "@/components/home/HowIWork";
 import { Industries, TechStrip } from "@/components/home/Industries";
 import { Engagement } from "@/components/home/Engagement";
 import { Insights } from "@/components/home/Insights";
-import { Testimonials } from "@/components/Testimonials";
 import { Faq, FaqJsonLd } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
 
@@ -28,9 +26,7 @@ export default function HomePage() {
       <Hero />
       <ProofBar />
       <Qualify />
-      <ServicesGrid />
       <WorkPreview />
-      <Testimonials />
       <HowIWork />
       <Industries />
       <TechStrip />

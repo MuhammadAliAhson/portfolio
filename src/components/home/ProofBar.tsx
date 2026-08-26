@@ -11,14 +11,24 @@ import { TestimonialCard } from "@/components/TestimonialCard";
  * fastest: a plain-English look at recent work, then what people who worked
  * with me say about it. No abstract metrics grid — just the projects and the
  * people, both animated in as you scroll.
+ *
+ * Each project card carries the whole story in the buyer's language — the
+ * result, the problem behind it, what changed, and the number — so a reader who
+ * never clicks through still knows what they would be hiring me to do. This is
+ * the only place testimonials appear on the home page.
  */
 export function ProofBar() {
   return (
     <section aria-label="Proof" className="border-y border-hairline bg-card py-12 md:py-14">
       <Container>
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <p className="eyebrow">Recent work, in brief</p>
-          <Link href="/work" className="link-action group">
+        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+          <div className="min-w-0">
+            <p className="eyebrow">Recent work, in brief</p>
+            <p className="mt-2 max-w-measure text-body font-medium text-ink">
+              What was going wrong, and what the client got back.
+            </p>
+          </div>
+          <Link href="/work" className="link-action group shrink-0">
             See every project
             <ArrowRight
               className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
@@ -27,19 +37,57 @@ export function ProofBar() {
           </Link>
         </div>
 
-        <RevealGroup className="mt-6 grid gap-4 sm:grid-cols-3">
+        <RevealGroup className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CASE_STUDIES.map((study) => (
             <Link
               key={study.slug}
               href={`/work/${study.slug}`}
-              className="group flex flex-col rounded-card border border-hairline bg-porcelain p-5 transition-colors hover:border-outline"
+              className="group flex h-full flex-col rounded-card border border-hairline bg-porcelain p-5 transition-colors hover:border-outline hover:bg-card sm:p-6"
             >
-              <p className="font-mono text-caption uppercase text-slate">{study.clientType}</p>
-              <p className="mt-2 text-small font-medium leading-snug text-ink">{study.result}</p>
-              <span className="mt-3 font-display text-h3 leading-none text-brass">
-                {study.metric.value}
-              </span>
-              <span className="mt-1 text-caption text-slate">{study.metric.label}</span>
+              <p className="font-mono text-eyebrow uppercase tracking-[0.14em] text-slate">
+                {study.clientType}
+              </p>
+
+              {/* The pitch. Everything under it exists to explain this line. */}
+              <p className="mt-3 font-display text-h3 leading-tight text-ink">{study.result}</p>
+
+              {/* Plain-English before and after, so a non-technical reader can
+                  follow the card without opening the case study. */}
+              <dl className="mt-5 space-y-3.5 hairline-t pt-5">
+                <div>
+                  <dt className="font-mono text-eyebrow uppercase tracking-[0.14em] text-slate">
+                    The problem
+                  </dt>
+                  <dd className="mt-1.5 text-small leading-relaxed text-muted">
+                    {study.brief.pain}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-mono text-eyebrow uppercase tracking-[0.14em] text-brass-deep">
+                    What changed
+                  </dt>
+                  <dd className="mt-1.5 text-small leading-relaxed text-ink">{study.brief.gain}</dd>
+                </div>
+              </dl>
+
+              {/* mt-auto: the metric sits on the card floor, so the three cards
+                  line up however long the copy above runs. */}
+              <div className="mt-auto flex items-end justify-between gap-4 pt-6">
+                <div className="min-w-0">
+                  <span className="block font-display text-h3 leading-none text-brass">
+                    {study.metric.value}
+                  </span>
+                  <span className="mt-1.5 block text-caption text-slate">
+                    {study.metric.label}
+                  </span>
+                </div>
+                <span
+                  aria-hidden="true"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-hairline text-brass-deep transition-colors group-hover:border-brass group-hover:bg-brass/10"
+                >
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </div>
             </Link>
           ))}
         </RevealGroup>

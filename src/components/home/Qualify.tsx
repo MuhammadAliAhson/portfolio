@@ -5,9 +5,10 @@ import { Section, SectionHead } from "@/components/ui/Section";
 import { RevealGroup } from "@/components/ui/Reveal";
 
 /**
- * The client's situation in their words, kept to one row so the services
- * section stays inside the first two viewports. Each card routes to the
- * matching service, where the longer version of the problem is spelled out.
+ * The client's situation in their words, kept to one row. Each card routes
+ * straight to the matching service page, where the longer version of the
+ * problem is spelled out — the home page no longer repeats the services grid,
+ * so these four cards are how a visitor gets from a symptom to a service.
  */
 const CARDS = [
   { slug: "production-readiness-audit", quote: "Our AI demo works. It breaks with real users." },
@@ -17,12 +18,13 @@ const CARDS = [
 ];
 
 export function Qualify() {
-  // Reduced bottom padding: this section shares the porcelain surface with the
-  // services grid below and reads as one movement, and the tighter boundary
-  // keeps services inside the first two viewports.
   return (
-    <Section id="is-this-you" tone="light" className="md:pb-section">
-      <SectionHead eyebrow="Is this you?" title="Four conversations I have most often" />
+    <Section id="is-this-you" tone="light">
+      <SectionHead
+        eyebrow="Is this you?"
+        title="Four conversations I have most often"
+        lede="Pick the one that sounds like your week — each goes straight to how I'd fix it, what it costs and how long it takes."
+      />
 
       <RevealGroup as="ul" className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {CARDS.map((card) => {

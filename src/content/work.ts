@@ -2,6 +2,12 @@ export interface CaseStudy {
   slug: string;
   /** Business result, in the buyer's language. Leads everything. */
   result: string;
+  /**
+   * Two plain-English lines for the home page card: what was going wrong, then
+   * what the client got out of it. No jargon, no numbers, one sentence each — a
+   * non-technical buyer skimming the page has to understand both in one pass.
+   */
+  brief: { pain: string; gain: string };
   title: string;
   /** Industry descriptor, not a client name. No client has approved being named. */
   clientType: string;
@@ -29,6 +35,10 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "enterprise-proposal-engine",
     result: "Fee proposals now go out the same day instead of taking days",
+    brief: {
+      pain: "Senior engineers were losing days rebuilding the same fee proposal by hand for every enquiry.",
+      gain: "Quotes now reach the client while the enquiry is still warm, and every one comes out consistent and on-brand.",
+    },
     title: "Turning project briefs into client-ready fee proposals",
     clientType: "Australian engineering consultancy",
     industry: "Engineering and construction consultancy",
@@ -73,6 +83,10 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "high-throughput-inference",
     result: "Production AI throughput on one GPU the team already owned",
+    brief: {
+      pain: "The AI feature stalled as soon as real users arrived, and the obvious fix was an expensive hardware upgrade.",
+      gain: "It now serves a hundred people at once on the hardware the team already had, so nothing extra had to be bought.",
+    },
     title: "Serving 100 concurrent requests from a single RTX 2080 Ti",
     clientType: "AI product studio",
     industry: "Software and AI products",
@@ -105,6 +119,10 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "contextual-rag-framework",
     result: "Faster, better-grounded answers at lower token cost",
+    brief: {
+      pain: "Answers came back slow and vague, and nobody could tell whether speed or accuracy was the real problem.",
+      gain: "Every question now takes the quickest route to a trustworthy answer, and each one costs less to ask.",
+    },
     title: "Routing each query to the retrieval method that suits it",
     clientType: "AI product studio",
     industry: "Software and AI products",
