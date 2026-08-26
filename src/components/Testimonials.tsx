@@ -1,4 +1,4 @@
-import { TESTIMONIALS } from "@/content/proof";
+import { TESTIMONIALS, TESTIMONIAL_SUMMARY } from "@/content/proof";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { RevealGroup } from "@/components/ui/Reveal";
 import { TestimonialCard } from "@/components/TestimonialCard";
@@ -13,8 +13,16 @@ export function Testimonials() {
 
   return (
     <Section id="testimonials" tone="light">
-      <SectionHead eyebrow="In their words" title="What people I've worked with say" />
-      <RevealGroup className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <SectionHead
+        eyebrow="In their words"
+        title="What people I've worked with say"
+        lede={
+          TESTIMONIAL_SUMMARY.average
+            ? `${TESTIMONIAL_SUMMARY.average} out of 5 across ${TESTIMONIAL_SUMMARY.count} reviews, quoted as written.`
+            : undefined
+        }
+      />
+      <RevealGroup className="mt-10 grid gap-4 md:grid-cols-2">
         {TESTIMONIALS.map((testimonial) => (
           <TestimonialCard key={testimonial.name} testimonial={testimonial} />
         ))}

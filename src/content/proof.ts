@@ -53,39 +53,89 @@ export const PLATFORM_PROOF = [
 export interface Testimonial {
   quote: string;
   name: string;
-  role: string;
+  /** Country, as the client gave it. Location does trust work a job title cannot. */
+  location: string;
+  /** The client's organisation, or the marketplace the engagement came through. */
   company: string;
+  /**
+   * How to read `company`. "platform" makes the card say "via Fiverr" rather
+   * than implying Fiverr was the client, and marks the review as one a visitor
+   * can go and read for themselves.
+   */
+  source: "company" | "platform";
   /** 1–5. Omit until the client has actually given a rating. */
   rating?: number;
   photo?: string;
 }
 
 /**
- * TODO(testimonials): the exact quote and star rating below are placeholders,
- * not real words — I do not invent what a named person said. Replace `quote`
- * and set `rating` with what Amrita and Darcy actually told you before this
- * goes live; until then TestimonialCard renders them in a visibly "awaiting
- * confirmation" state rather than as a finished review.
+ * Real reviews, in the clients' own words. Only two edits were made, both
+ * mechanical: an obvious typo ("witn" → "with"), and a full stop mid-sentence
+ * turned into a comma. Nothing was reworded, trimmed or improved.
  *
- * Also worth checking: Cerecon is your employer, not an independent client of
- * this practice (see /about). If Amrita and Darcy are colleagues or your
- * manager there, "role" should say that plainly — e.g. "Engineering Manager,
- * Cerecon" — rather than reading as a client testimonial for the practice.
+ * TODO(fiverr-link): add the public Fiverr profile URL to site.socials so the
+ * three marketplace reviews below link to the page they came from. A review a
+ * visitor can verify is worth several they cannot.
+ *
+ * Worth keeping straight: Cerecon is the organisation I work in, not an
+ * independent client of this practice (see /about). Amrita's review is
+ * genuine and internal — the note under the block on the home page says so
+ * rather than letting it read as third-party client proof.
+ *
+ * TestimonialCard renders any entry with an empty `quote` in a visibly
+ * "awaiting confirmation" state, so a name can be added here before the words
+ * are confirmed without inventing what that person said.
  */
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "",
-    name: "Amrita",
-    role: "Colleague, Cerecon",
+    quote:
+      "I am very happy with the service. Muhammad exceeded our expectations. He delivered the milestones on time and was always understanding, even with changes to the iterations and scope.",
+    name: "Amrita Kaur",
+    location: "Malaysia",
     company: "Cerecon",
+    source: "company",
+    rating: 5,
   },
   {
-    quote: "",
-    name: "Darcy Richardson",
-    role: "Colleague, Cerecon",
-    company: "Cerecon",
+    quote:
+      "Ali Ahson was incredible to work with! His attention to detail and professionalism were outstanding, and exceeded all my expectations. Plus, his quick responsiveness and language fluency made the whole process smooth and enjoyable!",
+    name: "Darnthic",
+    location: "United Kingdom",
+    company: "Fiverr",
+    source: "platform",
+    rating: 5,
+  },
+  {
+    quote:
+      "Went above my expectations, very polite and very experienced in his line of work, and was quick with replies and went above and beyond in assisting after finishing the deadline.",
+    name: "Omarkaff",
+    location: "United Kingdom",
+    company: "Fiverr",
+    source: "platform",
+    rating: 5,
+  },
+  {
+    quote: "Can't wait to work together again.",
+    name: "Rahhem",
+    location: "United States",
+    company: "Fiverr",
+    source: "platform",
+    rating: 5,
   },
 ];
+
+/**
+ * Derived, never hand-maintained: the headline "5.0 from 4 reviews" line has to
+ * stay true the moment a review is added or a rating changes. `average` is null
+ * until at least one entry carries a rating.
+ */
+export const TESTIMONIAL_SUMMARY = (() => {
+  const rated = TESTIMONIALS.filter((t) => typeof t.rating === "number");
+  const count = TESTIMONIALS.filter((t) => t.quote.trim().length > 0).length;
+  if (rated.length === 0) return { count, rated: 0, average: null as string | null };
+  const mean = rated.reduce((sum, t) => sum + (t.rating as number), 0) / rated.length;
+  return { count, rated: rated.length, average: mean.toFixed(1) };
+})();
 
 export const INDUSTRIES = [
   {

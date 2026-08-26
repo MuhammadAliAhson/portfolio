@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { CLIENT_DESCRIPTORS, PLATFORM_PROOF, TESTIMONIALS } from "@/content/proof";
+import {
+  CLIENT_DESCRIPTORS,
+  PLATFORM_PROOF,
+  TESTIMONIALS,
+  TESTIMONIAL_SUMMARY,
+} from "@/content/proof";
 import { CASE_STUDIES } from "@/content/work";
 import { Container } from "@/components/ui/Container";
 import { RevealGroup } from "@/components/ui/Reveal";
-import { TestimonialCard } from "@/components/TestimonialCard";
+import { Stars, TestimonialCard } from "@/components/TestimonialCard";
 
 /**
  * The first thing after the hero, and the section that has to earn trust
@@ -92,13 +97,48 @@ export function ProofBar() {
           ))}
         </RevealGroup>
 
-        <div className="mt-10 hairline-t pt-8">
-          <p className="eyebrow">What people I've worked with say</p>
-          <RevealGroup className="mt-6 grid gap-4 sm:grid-cols-2">
+        <div className="mt-12 hairline-t pt-10">
+          <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+            <div className="min-w-0">
+              <p className="eyebrow">What people I've worked with say</p>
+              <p className="mt-2 max-w-measure text-body font-medium text-ink">
+                Their words, not a summary of them.
+              </p>
+            </div>
+
+            {/* The aggregate is the fastest read on the block, so it gets its own
+                weight rather than being buried in the cards. */}
+            {TESTIMONIAL_SUMMARY.average ? (
+              <div className="flex items-center gap-3 rounded-full border border-hairline bg-porcelain px-4 py-2">
+                <Stars rating={5} />
+                <span className="text-small">
+                  <span className="font-medium text-ink">{TESTIMONIAL_SUMMARY.average}</span>
+                  <span className="text-slate">
+                    {" "}
+                    from {TESTIMONIAL_SUMMARY.count} reviews
+                  </span>
+                </span>
+              </div>
+            ) : null}
+          </div>
+
+          <RevealGroup className="mt-7 grid gap-4 md:grid-cols-2">
             {TESTIMONIALS.map((testimonial) => (
-              <TestimonialCard key={testimonial.name} testimonial={testimonial} compact />
+              <TestimonialCard
+                key={testimonial.name}
+                testimonial={testimonial}
+                compact
+                surface="porcelain"
+              />
             ))}
           </RevealGroup>
+
+          {/* Says where each review came from, so the internal one is not passed
+              off as independent client proof. */}
+          <p className="mt-4 font-mono text-eyebrow leading-relaxed text-slate">
+            Fiverr reviews are public on the platform. The Cerecon review is from inside the
+            organisation I work in, not an independent client of this practice.
+          </p>
         </div>
 
         <div className="mt-8 hairline-t pt-6 md:flex md:items-start md:justify-between md:gap-10">
